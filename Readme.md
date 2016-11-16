@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Артемий Кулапин](https://up.htmlacademy.ru/ecmascript/1/user/311391).
-* Наставник: `Неизвестно`.
+* Наставник: [Борис Стрельников](https://up.htmlacademy.ru/ecmascript/1/user/278461).
 
 ---
 
