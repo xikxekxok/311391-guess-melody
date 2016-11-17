@@ -3,8 +3,8 @@
   let template = document.querySelector('template');
 
   let loadTemplate = (templateName) => {
-  let content = template.content ? template.content : template;
-    return content.querySelector(templateName).cloneNode(true);
+    let content = template.content ? template.content : template;
+      return content.querySelector(templateName).cloneNode(true);
   };
 
 
