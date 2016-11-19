@@ -38,7 +38,7 @@ gulp.task('style', function () {
 });
 
 gulp.task('scripts', function () {
-  return gulp.src('js/**/*.js')
+  gulp.src('js/**/*.js')
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(babel({
@@ -52,7 +52,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('imagemin', ['copy'], function () {
-  return gulp.src('build/img/**/*.{jpg,png,gif}')
+  gulp.src('build/img/**/*.{jpg,png,gif}')
     .pipe(imagemin([
       imagemin.optipng({optimizationLevel: 3}),
       imagemin.jpegtran({progressive: true})
@@ -62,13 +62,13 @@ gulp.task('imagemin', ['copy'], function () {
 
 
 gulp.task('copy-html', function () {
-  return gulp.src('*.html')
+  gulp.src('*.html')
     .pipe(gulp.dest('build'))
     .pipe(server.stream());
 });
 
 gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
-  return gulp.src([
+  gulp.src([
     'fonts/**/*.{woff,woff2}',
     'img/*.*'
   ], {base: '.'})
@@ -76,7 +76,7 @@ gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
 });
 
 gulp.task('clean', function () {
-  return del('build');
+  return del(['build/*','build'],{force:true});
 });
 
 gulp.task('serve', ['assemble'], function () {
@@ -90,8 +90,7 @@ gulp.task('serve', ['assemble'], function () {
 
   gulp.watch('sass/**/*.{scss,sass}', ['style']);
 
-  //Интересно выходит. Выполняется copy-html, создает .html в папке build, watch его замечает - и уходит в бесконечный цикл. Поверхностный гуглинг ничего не дал
-  //gulp.watch('*.html', ['copy-html']);
+  gulp.watch('*.html', ['copy-html']);
   gulp.watch('js/**/*.js', ['scripts']).on('change', server.reload);
 });
 
