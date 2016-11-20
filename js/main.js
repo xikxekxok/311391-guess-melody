@@ -1,19 +1,15 @@
-import getElementFromTemplate from './elementProvider';
+import {welcomeScreen} from './screenModules/welcome';
+import {levelArtistScreen} from './screenModules/level_artist';
+import {levelGenreScreen} from './screenModules/level_genre';
+import {resultScreen} from './screenModules/result';
+
 (function () {
-  console.log(getElementFromTemplate("<div>q!</div>"))
-  let template = document.querySelector('template');
-
-  let loadTemplate = (templateName) => {
-    let content = template.content ? template.content : template;
-    return content.querySelector(templateName).cloneNode(true);
-  };
-
 
   let slides = [
-    loadTemplate('.main--welcome'),
-    loadTemplate('.main--level-artist'),
-    loadTemplate('.main--level-genre'),
-    loadTemplate('.main--result')
+    welcomeScreen,
+    levelArtistScreen,
+    levelGenreScreen,
+    resultScreen
   ];
   let current = -1;
 
@@ -22,15 +18,21 @@ import getElementFromTemplate from './elementProvider';
     let mainElement = document.querySelector('.main');
     mainElement.parentNode.replaceChild(slides[index], mainElement);
   };
-
   document.onkeydown = (evt) => {
     evt.preventDefault();
 
     switch (evt.keyCode) {
-      case 37: current--; break;
-      case 39: current++; break;
+      case 37:
+        current = current > 0
+          ? current - 1
+          : current;
+        break;
+      case 39:
+        current = current < slides.length - 1
+          ? current + 1
+          : current;
+        break;
     }
-
     select(current);
   };
 

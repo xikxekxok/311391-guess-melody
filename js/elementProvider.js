@@ -1,5 +1,5 @@
-export const getElementFromTemplate = (template) => {
-  var template = document.createElement('template');
-  template.innerHTML = html;
+export const getElementFromTemplate = (templateHtml) => {
+  let template = document.createElement('template');
+  template.innerHTML = templateHtml;
   return template.content.firstChild;
-}
+};
