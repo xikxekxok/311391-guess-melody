@@ -1,5 +1,6 @@
+import getElementFromTemplate from './elementProvider';
 (function () {
-
+  console.log(getElementFromTemplate("<div>q!</div>"))
   let template = document.querySelector('template');
 
   let loadTemplate = (templateName) => {
