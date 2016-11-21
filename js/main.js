@@ -1,7 +1,7 @@
-import {welcomeScreen} from './screenModules/welcome';
-import {levelArtistScreen} from './screenModules/level_artist';
-import {levelGenreScreen} from './screenModules/level_genre';
-import {resultScreen} from './screenModules/result';
+import welcomeScreen from './screenModules/welcome';
+import levelArtistScreen from './screenModules/level_artist';
+import levelGenreScreen from './screenModules/level_genre';
+import resultScreen from './screenModules/result';
 
 (function () {
 

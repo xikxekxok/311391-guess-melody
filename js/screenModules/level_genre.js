@@ -1,5 +1,7 @@
 import {getElementFromTemplate} from '../elementProvider';
-export const levelGenreScreen = getElementFromTemplate(`<section class="main main--level main--level-genre">
+
+const levelGenreScreen = getElementFromTemplate(
+    `<section class="main main--level main--level-genre">
     <h2 class="title">Выберите инди-рок треки</h2>
     <form class="genre">
       <div class="genre-answer">
@@ -28,4 +30,7 @@ export const levelGenreScreen = getElementFromTemplate(`<section class="main mai
 
       <button class="genre-answer-send" type="submit">Ответить</button>
     </form>
-  </section>`);
+  </section>`
+);
+
+export default levelGenreScreen;

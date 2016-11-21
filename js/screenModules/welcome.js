@@ -1,5 +1,7 @@
 import {getElementFromTemplate} from '../elementProvider';
-export const welcomeScreen = getElementFromTemplate(`<section class="main main--welcome">
+
+const welcomeScreen = getElementFromTemplate(
+    `<section class="main main--welcome">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
     <button class="main-play">Начать игру</button>
     <h2 class="title main-title">Правила игры</h2>
@@ -9,4 +11,7 @@ export const welcomeScreen = getElementFromTemplate(`<section class="main main--
       На&nbsp;каждую мелодию всего 3 варианта ответа.<br>
       Удачи!
     </p>
-  </section>`);
+  </section>`
+);
+
+export default welcomeScreen;
