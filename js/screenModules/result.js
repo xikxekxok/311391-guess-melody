@@ -1,4 +1,7 @@
-import {getElementFromTemplate} from '../elementProvider';
+import getElementFromTemplate from '../elementProvider';
+import setScreen from '../currentScreenProvider';
+import openWelcomeScreen from './welcome';
+import {onClick} from '../domHelper';
 
 const resultScreen = getElementFromTemplate(
     `<section class="main main--result">
@@ -11,4 +14,9 @@ const resultScreen = getElementFromTemplate(
     </section>`
 );
 
-export default resultScreen;
+const open = () => {
+  setScreen(resultScreen);
+  onClick('.main-replay', openWelcomeScreen);
+};
+
+export default open;

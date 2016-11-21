@@ -1,4 +1,7 @@
-import {getElementFromTemplate} from '../elementProvider';
+import getElementFromTemplate from '../elementProvider';
+import setScreen from '../currentScreenProvider';
+import openGenreScreen from './level_genre';
+import {onClick} from '../domHelper';
 
 const levelArtistScreen = getElementFromTemplate(
     `<section class="main main--level main--level-artist">
@@ -49,4 +52,9 @@ const levelArtistScreen = getElementFromTemplate(
   </section>`
 );
 
-export default levelArtistScreen;
+const open = () => {
+  setScreen(levelArtistScreen);
+  onClick('.main-answer-r', openGenreScreen);
+};
+
+export default open;

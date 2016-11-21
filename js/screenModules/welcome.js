@@ -1,4 +1,7 @@
-import {getElementFromTemplate} from '../elementProvider';
+import getElementFromTemplate from '../elementProvider';
+import setScreen from '../currentScreenProvider';
+import openLevelArtist from './level_artist';
+import {onClick} from '../domHelper';
 
 const welcomeScreen = getElementFromTemplate(
     `<section class="main main--welcome">
@@ -14,4 +17,10 @@ const welcomeScreen = getElementFromTemplate(
   </section>`
 );
 
-export default welcomeScreen;
+const open = ()=> {
+  setScreen(welcomeScreen);
+  onClick('.main-play', openLevelArtist);
+};
+
+
+export default open;

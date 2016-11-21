@@ -1,4 +1,7 @@
-import {getElementFromTemplate} from '../elementProvider';
+import getElementFromTemplate from '../elementProvider';
+import setScreen from '../currentScreenProvider';
+import openResultScreen from './result';
+import {onClick, onSubmit} from '../domHelper';
 
 const levelGenreScreen = getElementFromTemplate(
     `<section class="main main--level main--level-genre">
@@ -33,4 +36,45 @@ const levelGenreScreen = getElementFromTemplate(
   </section>`
 );
 
-export default levelGenreScreen;
+const open = () => {
+  setScreen(levelGenreScreen);
+  bindAnswers();
+  bindSubmit();
+};
+
+const bindAnswers = () => {
+  const checkboxes = getCheckboxes();
+
+  for (let value of checkboxes) {
+    let closure = value;
+    onClick(`#${value.id}`, () => {
+      closure.selected = !closure.selected;
+      setButtonState(checkboxes);
+    });
+
+  }
+  setButtonState(checkboxes);
+};
+
+const bindSubmit = () => {
+  onSubmit('.genre', openResultScreen, true);
+};
+
+const setButtonState = (checkboxes) => {
+  let button = document.querySelector('.genre-answer-send');
+  let newState = checkboxes.filter((x) => x.selected).length === 0;
+
+  button.disabled = newState;
+};
+
+const getCheckboxes = () => {
+  let result = [
+    {id: 'a-1', selected: false},
+    {id: 'a-2', selected: false},
+    {id: 'a-3', selected: false},
+    {id: 'a-4', selected: false}
+  ];
+  return result;
+};
+
+export default open;
