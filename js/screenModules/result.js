@@ -1,6 +1,9 @@
-import {getElementFromTemplate} from '../elementProvider';
+import getElementFromTemplate from '../elementProvider';
+import setScreen from '../currentScreenProvider';
+import openWelcomeScreen from './welcome';
+import {registerClickHandler} from '../domHelper';
 
-const resultScreen = getElementFromTemplate(
+const getResultScreen = () => getElementFromTemplate(
     `<section class="main main--result">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
 
@@ -11,4 +14,9 @@ const resultScreen = getElementFromTemplate(
     </section>`
 );
 
-export default resultScreen;
+const open = () => {
+  setScreen(getResultScreen());
+  registerClickHandler('.main-replay', openWelcomeScreen);
+};
+
+export default open;

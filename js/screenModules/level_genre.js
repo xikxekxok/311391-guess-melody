@@ -1,6 +1,9 @@
-import {getElementFromTemplate} from '../elementProvider';
+import getElementFromTemplate from '../elementProvider';
+import setScreen from '../currentScreenProvider';
+import openResultScreen from './result';
+import {registerClickHandler, registerSubmitHandler} from '../domHelper';
 
-const levelGenreScreen = getElementFromTemplate(
+const getLevelGenreScreen = () => getElementFromTemplate(
     `<section class="main main--level main--level-genre">
     <h2 class="title">Выберите инди-рок треки</h2>
     <form class="genre">
@@ -33,4 +36,45 @@ const levelGenreScreen = getElementFromTemplate(
   </section>`
 );
 
-export default levelGenreScreen;
+const open = () => {
+  setScreen(getLevelGenreScreen());
+  bindAnswers();
+  bindSubmit();
+};
+
+const bindAnswers = () => {
+  const checkboxes = getCheckboxes();
+
+  for (let value of checkboxes) {
+    let closure = value;
+    registerClickHandler(`#${value.id}`, () => {
+      closure.selected = !closure.selected;
+      setButtonState(checkboxes);
+    });
+
+  }
+  setButtonState(checkboxes);
+};
+
+const bindSubmit = () => {
+  registerSubmitHandler('.genre', openResultScreen, true);
+};
+
+const setButtonState = (checkboxes) => {
+  let button = document.querySelector('.genre-answer-send');
+  let newState = checkboxes.filter((x) => x.selected).length === 0;
+
+  button.disabled = newState;
+};
+
+const getCheckboxes = () => {
+  let result = [
+    {id: 'a-1', selected: false},
+    {id: 'a-2', selected: false},
+    {id: 'a-3', selected: false},
+    {id: 'a-4', selected: false}
+  ];
+  return result;
+};
+
+export default open;
