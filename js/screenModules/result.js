@@ -1,7 +1,7 @@
 import getElementFromTemplate from '../elementProvider';
 import setScreen from '../currentScreenProvider';
 import openWelcomeScreen from './welcome';
-import {onClick} from '../domHelper';
+import {registerClickHandler} from '../domHelper';
 
 const resultScreen = getElementFromTemplate(
     `<section class="main main--result">
@@ -16,7 +16,7 @@ const resultScreen = getElementFromTemplate(
 
 const open = () => {
   setScreen(resultScreen);
-  onClick('.main-replay', openWelcomeScreen);
+  registerClickHandler('.main-replay', openWelcomeScreen);
 };
 
 export default open;

@@ -1,7 +1,7 @@
 import getElementFromTemplate from '../elementProvider';
 import setScreen from '../currentScreenProvider';
 import openResultScreen from './result';
-import {onClick, onSubmit} from '../domHelper';
+import {registerClickHandler, registerSubmitHandler} from '../domHelper';
 
 const levelGenreScreen = getElementFromTemplate(
     `<section class="main main--level main--level-genre">
@@ -47,7 +47,7 @@ const bindAnswers = () => {
 
   for (let value of checkboxes) {
     let closure = value;
-    onClick(`#${value.id}`, () => {
+    registerClickHandler(`#${value.id}`, () => {
       closure.selected = !closure.selected;
       setButtonState(checkboxes);
     });
@@ -57,7 +57,7 @@ const bindAnswers = () => {
 };
 
 const bindSubmit = () => {
-  onSubmit('.genre', openResultScreen, true);
+  registerSubmitHandler('.genre', openResultScreen, true);
 };
 
 const setButtonState = (checkboxes) => {

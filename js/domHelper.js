@@ -1,4 +1,4 @@
-export const onClick = (selector, callback) => {
+export const registerClickHandler = (selector, callback) => {
   let elements = document.querySelectorAll(selector);
 
   for (let element of elements) {
@@ -6,7 +6,7 @@ export const onClick = (selector, callback) => {
   }
 };
 
-export const onSubmit = (selector, callback, stop) => {
+export const registerSubmitHandler = (selector, callback, stop) => {
   let elements = document.querySelectorAll(selector);
 
   for (let element of elements) {
