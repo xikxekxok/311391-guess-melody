@@ -3,8 +3,8 @@ import setScreen from '../currentScreenProvider';
 import openLevelArtist from './level_artist';
 import {registerClickHandler} from '../domHelper';
 
-const welcomeScreen = getElementFromTemplate(
-  `<section class="main main--welcome">
+const getWelcomeScreen = () => getElementFromTemplate(
+    `<section class="main main--welcome">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
     <button class="main-play">Начать игру</button>
     <h2 class="title main-title">Правила игры</h2>
@@ -18,7 +18,7 @@ const welcomeScreen = getElementFromTemplate(
 );
 
 const open = () => {
-  setScreen(welcomeScreen);
+  setScreen(getWelcomeScreen());
   registerClickHandler('.main-play', openLevelArtist);
 };
 

@@ -3,7 +3,7 @@ import setScreen from '../currentScreenProvider';
 import openGenreScreen from './level_genre';
 import {registerClickHandler} from '../domHelper';
 
-const levelArtistScreen = getElementFromTemplate(
+const getLevelArtistScreen = () => getElementFromTemplate(
     `<section class="main main--level main--level-artist">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
@@ -53,7 +53,7 @@ const levelArtistScreen = getElementFromTemplate(
 );
 
 const open = () => {
-  setScreen(levelArtistScreen);
+  setScreen(getLevelArtistScreen());
   registerClickHandler('.main-answer-r', openGenreScreen);
 };
 

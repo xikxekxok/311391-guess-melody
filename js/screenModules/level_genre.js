@@ -3,7 +3,7 @@ import setScreen from '../currentScreenProvider';
 import openResultScreen from './result';
 import {registerClickHandler, registerSubmitHandler} from '../domHelper';
 
-const levelGenreScreen = getElementFromTemplate(
+const getLevelGenreScreen = () => getElementFromTemplate(
     `<section class="main main--level main--level-genre">
     <h2 class="title">Выберите инди-рок треки</h2>
     <form class="genre">
@@ -37,7 +37,7 @@ const levelGenreScreen = getElementFromTemplate(
 );
 
 const open = () => {
-  setScreen(levelGenreScreen);
+  setScreen(getLevelGenreScreen());
   bindAnswers();
   bindSubmit();
 };
