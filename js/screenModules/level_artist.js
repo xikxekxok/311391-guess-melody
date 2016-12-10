@@ -1,5 +1,5 @@
-import getElementFromTemplate from '../elementProvider';
-import {registerClickHandler} from '../domHelper';
+import getElementFromTemplate from '../infrastructure/elementProvider';
+import {registerClickHandler} from '../infrastructure/domHelper';
 
 const getTimer = (timerModel) =>
   `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">

@@ -1,7 +1,5 @@
-import getElementFromTemplate from '../elementProvider';
-import setScreen from '../currentScreenProvider';
-import openResultScreen from './result';
-import {registerClickHandler, registerSubmitHandler} from '../domHelper';
+import getElementFromTemplate from '../infrastructure/elementProvider';
+import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
 
 
 const getAnswer = (answerModel) =>
@@ -22,43 +20,45 @@ const getLevelGenreScreen = (model) => getElementFromTemplate(
 );
 
 let checkboxes = [];
+let element;
 
-const bindAnswers = (element, questionModel) => {
-  checkboxes = getCheckboxes(questionModel);
+const bindAnswers = () => {
 
   for (let value of checkboxes) {
     let closure = value;
     registerClickHandler(element, `#a-${value.id}`, () => {
       closure.selected = !closure.selected;
-      setButtonState(checkboxes);
+      setButtonState();
     });
   }
 
-  setButtonState(checkboxes);
+  setButtonState();
 };
 
-const setButtonState = (checkboxes) => {
-  let button = document.querySelector('.genre-answer-send');
+const setButtonState = () => {
+  let button = element.querySelector('.genre-answer-send');
   let newState = checkboxes.filter((x) => x.selected).length === 0;
 
   button.disabled = newState;
 };
 
 const getCheckboxes = (questionModel) => {
-  let result = questionModel.answers.map(x=>{{id: x.id, selected: false}});
+  let result = questionModel.answers.map(x=>{return {id: x.id, selected: false};});
   return result;
 };
 
 
 const getLevelView = (questionModel, answerCallback) => {
-  let element = getLevelGenreScreen(questionModel);
-  setScreen(screen);
+  element = getLevelGenreScreen(questionModel);
+  checkboxes = getCheckboxes(questionModel);
 
-  bindAnswers(element, questionModel);
+  bindAnswers();
 
   registerSubmitHandler(element, '.genre', ()=>{
     answerCallback(checkboxes.filter(x=>x.selected).map(x=>x.id))
-  }), true);
+  }, true);
+
+  return element;
 };
 
 export default getLevelView;

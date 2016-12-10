@@ -1,5 +1,5 @@
-import getElementFromTemplate from '../elementProvider';
-import {registerClickHandler} from '../domHelper';
+import getElementFromTemplate from '../infrastructure/elementProvider';
+import {registerClickHandler} from '../infrastructure/domHelper';
 
 const getWelcomeScreen = () => getElementFromTemplate(
     `<section class="main main--welcome">

@@ -25,6 +25,7 @@ const openGame = (questions, endCallback) => {
 const onAnswer = (answer) => {
   if (answer == undefined)
     throw new Error('');
+
   _result.push({
     question: _currentQuestion,
     answer: answer
@@ -55,10 +56,13 @@ const showNextQuestion = () => {
       throw new Error('unknown level type'); //TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
   }
 
-  let _currentQuestion = nextQuestion;
+  _currentQuestion = nextQuestion;
+
   setScreen(nextLevelElement);
 }
 
 const endGame = () => {
   _endCallback(_result);
 }
+
+export default openGame;

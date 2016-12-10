@@ -11,10 +11,10 @@ export const registerSubmitHandler = (root, selector, callback, stop) => {
 
   for (let element of elements) {
     element.addEventListener('submit', (event) => {
-      callback();
       if (stop) {
         event.preventDefault();
       }
+      callback();
     });
   }
 };
