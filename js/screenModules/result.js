@@ -13,6 +13,13 @@ const getResultScreen = (model) => getElementFromTemplate(
 );
 
 const getResultView = (resultModel, callBack) => {
+  if (resultModel === void (0) ) {
+    throw new Error('resultModel not provided!');
+  }
+  if (callBack === void (0) ) {
+    throw new Error('callBack not provided!');
+  }
+
   let element = getResultScreen(resultModel);
 
   registerClickHandler(element, '.main-replay', callBack);

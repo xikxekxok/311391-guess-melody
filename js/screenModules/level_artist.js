@@ -46,6 +46,13 @@ const timer = {
 };
 
 const getLevelView = (questionModel, answerCallback) => {
+  if (questionModel === void (0) ) {
+    throw new Error('questionModel not provided!');
+  }
+  if (answerCallback === void (0) ) {
+    throw new Error('answerCallback not provided!');
+  }
+
   let element = getLevelArtistScreen(timer, questionModel);
 
   for (let answer of questionModel.answers) {

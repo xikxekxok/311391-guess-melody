@@ -17,6 +17,10 @@ const startGame = () => {
 };
 
 const showResults = (answers) => {
+  if (answers === void (0) ) {
+    throw new Error('answers not provided!');
+  }
+
   let resultModel = calcGameResult(answers);
 
   let resultElement = getResultView(resultModel, startGame);

@@ -16,6 +16,10 @@ const getWelcomeScreen = () => getElementFromTemplate(
 );
 
 const getMainView = (nextScreenCallback) => {
+  if (nextScreenCallback === void (0) ) {
+    throw new Error('nextScreenCallback not provided!');
+  }
+
   let element = getWelcomeScreen();
 
   registerClickHandler(element, '.main-play', nextScreenCallback);

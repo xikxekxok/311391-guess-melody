@@ -9,6 +9,14 @@ let _currentQuestion;
 let _result;
 
 const openGame = (questions, endCallback) => {
+  if (questions === void (0) ) {
+    throw new Error('questions not provided!');
+  }
+  if (endCallback === void (0) ) {
+    throw new Error('endCallback not provided!');
+  }
+
+  _questions = questions;
   _endCallback = endCallback;
 
   _result = [];
@@ -17,6 +25,10 @@ const openGame = (questions, endCallback) => {
 };
 
 const onAnswer = (answer) => {
+  if (answer === void (0) ) {
+    throw new Error('answer not provided!');
+  }
+
   _result.push({
     question: _currentQuestion,
     answer: answer

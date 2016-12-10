@@ -51,6 +51,13 @@ const getCheckboxes = (questionModel) => {
 
 
 const getLevelView = (questionModel, answerCallback) => {
+  if (questionModel === void (0) ) {
+    throw new Error('questionModel not provided!');
+  }
+  if (answerCallback === void (0) ) {
+    throw new Error('answerCallback not provided!');
+  }
+
   element = getLevelGenreScreen(questionModel);
   checkboxes = getCheckboxes(questionModel);
 
