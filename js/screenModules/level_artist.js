@@ -24,7 +24,7 @@ const getAnswer = (answerModel) =>
           </label>
         </div>`;
 
-const getLevelArtistScreen = (timer,question) => getElementFromTemplate(
+const getLevelArtistScreen = (timer, question) => getElementFromTemplate(
     `<section class="main main--level main--level-artist">
     ${getTimer(timer)}
     <div class="main-wrap">
@@ -41,18 +41,17 @@ const getLevelArtistScreen = (timer,question) => getElementFromTemplate(
 );
 
 const timer = {
-    mins: 2,
-    secs: 0
-  };
+  mins: 2,
+  secs: 0
+};
 
 const getLevelView = (questionModel, answerCallback) => {
-  let element = getLevelArtistScreen(timer,questionModel);
+  let element = getLevelArtistScreen(timer, questionModel);
 
-  for(let answer of questionModel.answers)
-  {
+  for (let answer of questionModel.answers) {
     registerClickHandler(element, `#answer-${answer.id}`, ()=>answerCallback(answer.id));
   }
-  return element
+  return element;
 };
 
 export default getLevelView;

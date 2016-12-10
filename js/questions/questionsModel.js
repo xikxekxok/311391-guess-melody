@@ -1,16 +1,16 @@
 export const questionType = {
-  artist : 1,
-  genre : 2
-}
+  artist: 1,
+  genre: 2
+};
 
-export class questionsModel{
+export class QuestionsModel {
 
   constructor(questions) {
     this._questions = questions;
   }
 
   hasUnanswered() {
-    return this._questions.length>0;
+    return this._questions.length > 0;
   }
 
   getNext() {

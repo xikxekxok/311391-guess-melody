@@ -43,7 +43,9 @@ const setButtonState = () => {
 };
 
 const getCheckboxes = (questionModel) => {
-  let result = questionModel.answers.map(x=>{return {id: x.id, selected: false};});
+  let result = questionModel.answers.map((x) => {
+    return {id: x.id, selected: false};
+  });
   return result;
 };
 
@@ -54,8 +56,8 @@ const getLevelView = (questionModel, answerCallback) => {
 
   bindAnswers();
 
-  registerSubmitHandler(element, '.genre', ()=>{
-    answerCallback(checkboxes.filter(x=>x.selected).map(x=>x.id))
+  registerSubmitHandler(element, '.genre', () => {
+    answerCallback(checkboxes.filter((x) => x.selected).map((x) => x.id));
   }, true);
 
   return element;

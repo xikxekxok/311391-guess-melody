@@ -9,33 +9,25 @@ let _currentQuestion;
 let _result;
 
 const openGame = (questions, endCallback) => {
-  if (questions==undefined)
-    throw new Error('questions not provided');
-  _questions = questions;
-
-  _endCallback = endCallback != undefined
-    ? endCallback
-    : ()=>{};
+  _endCallback = endCallback;
 
   _result = [];
 
   showNextQuestion();
-}
+};
 
 const onAnswer = (answer) => {
-  if (answer == undefined)
-    throw new Error('');
-
   _result.push({
     question: _currentQuestion,
     answer: answer
   });
 
-  if (_questions.hasUnanswered())
+  if (_questions.hasUnanswered()) {
     showNextQuestion();
-  else
+  } else {
     endGame();
-}
+  }
+};
 
 const showNextQuestion = () => {
 
@@ -53,16 +45,16 @@ const showNextQuestion = () => {
       break;
 
     default:
-      throw new Error('unknown level type'); //TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
+      throw new Error('unknown level type'); // TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
   }
 
   _currentQuestion = nextQuestion;
 
   setScreen(nextLevelElement);
-}
+};
 
 const endGame = () => {
   _endCallback(_result);
-}
+};
 
 export default openGame;

@@ -1,5 +1,4 @@
 const calcResult = (answers) => {
-  console.log(answers);
   // по заданию пока считать ответы не нужно, да и вопросы относительно этого есть. пока заглушка
   return {
     resultText: 'Вы настоящий меломан!',
@@ -7,6 +6,6 @@ const calcResult = (answers) => {
     guessCount: 4,
     betterPercent: 80
   };
-}
+};
 
 export default calcResult;
