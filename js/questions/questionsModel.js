@@ -3,7 +3,7 @@ export const questionType = {
   genre : 2
 }
 
-export class questionModel{
+export class questionsModel{
 
   constructor(questions) {
     this._questions = questions;

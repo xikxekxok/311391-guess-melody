@@ -1,4 +1,4 @@
-import {questionModel, questionType} from './questionModel';
+import {questionsModel, questionType} from './questionsModel';
 
 const getQuestions = () => {
   let result = [];
@@ -18,7 +18,7 @@ const getQuestions = () => {
 
   }
 
-  return new questionModel(result);
+  return new questionsModel(result);
 }
 
 const getArtistQuestion = () => {

@@ -1,8 +1,7 @@
-import openWelcome from './screenModules/welcome';
+import getWelcomeView from './screenModules/welcome';
+import setScreen from './infrastructure/currentScreenProvider';
 import openResult from './screenModules/result';
-import {getQuestions} from './questionModel';
-
-openWelcome(startGame);
+import getQuestions from './questions/questionProvider';
 
 const startGame = () => {
   let questions = getQuestions();
@@ -15,3 +14,6 @@ const showResults = (answers) => {
 
   openResult(gameResult, startGame);
 }
+
+let welcomeElement = getWelcomeView(startGame);
+setScreen(welcomeElement);

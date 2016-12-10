@@ -1,7 +1,7 @@
-import setScreen from './currentScreenProvider';
+import setScreen from './infrastructure/currentScreenProvider';
 import levelArtist from './screenModules/level_artist';
 import levelGenre from './screenModules/level_genre';
-import {questionType} from './questionModel';
+import {questionType} from './questions/questionsModel';
 
 let _endCallback;
 let _questions;
@@ -9,14 +9,22 @@ let _currentQuestion;
 let _result;
 
 const openGame = (questions, endCallback) => {
-  _endCallback = endCallback;
+  if (questions==undefined)
+    throw new Error('questions not provided');
   _questions = questions;
+
+  _endCallback = endCallback != undefined
+    ? endCallback
+    : ()=>{};
+
   _result = [];
 
   showNextQuestion();
 }
 
 const onAnswer = (answer) => {
+  if (answer == undefined)
+    throw new Error('');
   _result.push({
     question: _currentQuestion,
     answer: answer

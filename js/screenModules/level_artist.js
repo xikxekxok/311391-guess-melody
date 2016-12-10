@@ -1,6 +1,4 @@
 import getElementFromTemplate from '../elementProvider';
-import setScreen from '../currentScreenProvider';
-import openGenreScreen from './level_genre';
 import {registerClickHandler} from '../domHelper';
 
 const getTimer = (timerModel) =>
@@ -26,40 +24,35 @@ const getAnswer = (answerModel) =>
           </label>
         </div>`;
 
-const getLevelArtistScreen = (model) => getElementFromTemplate(
+const getLevelArtistScreen = (timer,question) => getElementFromTemplate(
     `<section class="main main--level main--level-artist">
-    ${getTimer(model.timer)}
+    ${getTimer(timer)}
     <div class="main-wrap">
       <div class="main-timer"></div>
 
-      <h2 class="title main-title">${model.question}</h2>
+      <h2 class="title main-title">${question.question}</h2>
 
       <div class="player-wrapper"></div>
       <form class="main-list">
-        ${model.answers.map((x) => getAnswer(x)).join('')}
+        ${question.answers.map((x) => getAnswer(x)).join('')}
       </form>
     </div>
   </section>`
 );
 
-const defaultModel = {
-  timer: {
+const timer = {
     mins: 2,
     secs: 0
-  },
-  question: 'Кто исполняет эту песню?',
-  answers: [
-    {id: 1, text: 'Пелагея'},
-    {id: 2, text: 'Краснознаменная дивизия имени моей бабушки'},
-    {id: 3, text: 'Lorde'}
-  ]
+  };
+
+const getLevelView = (questionModel, answerCallback) => {
+  let element = getLevelArtistScreen(timer,questionModel);
+
+  for(let answer of questionModel.answers)
+  {
+    registerClickHandler(element, `#answer-${answer.id}`, ()=>answerCallback(answer.id));
+  }
+  return element
 };
 
-const open = () => {
-  let screen = getLevelArtistScreen(defaultModel);
-  setScreen(screen);
-
-  registerClickHandler('.main-answer-r', openGenreScreen);
-};
-
-export default open;
+export default getLevelView;
