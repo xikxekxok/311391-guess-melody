@@ -1,7 +1,6 @@
-import getElementFromTemplate from '../elementProvider';
-import setScreen from '../currentScreenProvider';
-import openLevelArtist from './level_artist';
-import {registerClickHandler} from '../domHelper';
+import getElementFromTemplate from '../infrastructure/elementProvider';
+import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getWelcomeScreen = () => getElementFromTemplate(
     `<section class="main main--welcome">
@@ -17,10 +16,15 @@ const getWelcomeScreen = () => getElementFromTemplate(
   </section>`
 );
 
-const open = () => {
-  setScreen(getWelcomeScreen());
-  registerClickHandler('.main-play', openLevelArtist);
+const getMainView = (nextScreenCallback) => {
+  checkIsProvided(nextScreenCallback, 'nextScreenCallback');
+
+  let element = getWelcomeScreen();
+
+  registerClickHandler(element, '.main-play', nextScreenCallback);
+
+  return element;
 };
 
 
-export default open;
+export default getMainView;

@@ -1,7 +1,6 @@
-import getElementFromTemplate from '../elementProvider';
-import setScreen from '../currentScreenProvider';
-import openWelcomeScreen from './welcome';
-import {registerClickHandler} from '../domHelper';
+import getElementFromTemplate from '../infrastructure/elementProvider';
+import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getResultScreen = (model) => getElementFromTemplate(
     `<section class="main main--result">
@@ -14,18 +13,15 @@ const getResultScreen = (model) => getElementFromTemplate(
     </section>`
 );
 
-const defaultModel = {
-  resultText: 'Вы настоящий меломан!',
-  minuteCount: 2,
-  guessCount: 4,
-  betterPercent: 80
+const getResultView = (resultModel, callBack) => {
+  checkIsProvided(resultModel, 'resultModel');
+  checkIsProvided(callBack, 'callBack');
+
+  let element = getResultScreen(resultModel);
+
+  registerClickHandler(element, '.main-replay', callBack);
+
+  return element;
 };
 
-const open = () => {
-  let screen = getResultScreen(defaultModel);
-  setScreen(screen);
-
-  registerClickHandler('.main-replay', openWelcomeScreen);
-};
-
-export default open;
+export default getResultView;

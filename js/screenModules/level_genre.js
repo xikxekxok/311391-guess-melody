@@ -1,8 +1,6 @@
-import getElementFromTemplate from '../elementProvider';
-import setScreen from '../currentScreenProvider';
-import openResultScreen from './result';
-import {registerClickHandler, registerSubmitHandler} from '../domHelper';
-
+import getElementFromTemplate from '../infrastructure/elementProvider';
+import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getAnswer = (answerModel) =>
     `<div class="genre-answer">
@@ -21,57 +19,51 @@ const getLevelGenreScreen = (model) => getElementFromTemplate(
   </section>`
 );
 
-const defaultModel = {
-  question: 'Выберите инди-рок треки',
-  answers: [
-    {id: 1},
-    {id: 2},
-    {id: 3},
-    {id: 4},
-  ]
-};
-
-const open = () => {
-  let screen = getLevelGenreScreen(defaultModel);
-  setScreen(screen);
-
-  bindAnswers();
-  bindSubmit();
-};
+let checkboxes = [];
+let element;
 
 const bindAnswers = () => {
-  const checkboxes = getCheckboxes();
 
   for (let value of checkboxes) {
     let closure = value;
-    registerClickHandler(`#${value.id}`, () => {
+    registerClickHandler(element, `#a-${value.id}`, () => {
       closure.selected = !closure.selected;
-      setButtonState(checkboxes);
+      setButtonState();
     });
-
   }
-  setButtonState(checkboxes);
+
+  setButtonState();
 };
 
-const bindSubmit = () => {
-  registerSubmitHandler('.genre', openResultScreen, true);
-};
-
-const setButtonState = (checkboxes) => {
-  let button = document.querySelector('.genre-answer-send');
+const setButtonState = () => {
+  let button = element.querySelector('.genre-answer-send');
   let newState = checkboxes.filter((x) => x.selected).length === 0;
 
   button.disabled = newState;
 };
 
-const getCheckboxes = () => {
-  let result = [
-    {id: 'a-1', selected: false},
-    {id: 'a-2', selected: false},
-    {id: 'a-3', selected: false},
-    {id: 'a-4', selected: false}
-  ];
+const getCheckboxes = (questionModel) => {
+  let result = questionModel.answers.map((x) => {
+    return {id: x.id, selected: false};
+  });
   return result;
 };
 
-export default open;
+
+const getLevelView = (questionModel, answerCallback) => {
+  checkIsProvided(questionModel, 'questionModel');
+  checkIsProvided(answerCallback, 'answerCallback');
+
+  element = getLevelGenreScreen(questionModel);
+  checkboxes = getCheckboxes(questionModel);
+
+  bindAnswers();
+
+  registerSubmitHandler(element, '.genre', () => {
+    answerCallback(checkboxes.filter((x) => x.selected).map((x) => x.id));
+  }, true);
+
+  return element;
+};
+
+export default getLevelView;

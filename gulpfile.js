@@ -54,7 +54,7 @@ gulp.task('scripts', function () {
     }))
     .pipe(gulp.dest('build/js/'));
 
-  gulp.src(['js/*.js','!js/main.js'])
+  gulp.src(['js/import/*.js','!js/main.js'])
     .pipe(plumber())
     .pipe(gulp.dest('build/js/'));
 });
