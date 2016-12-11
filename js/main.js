@@ -4,6 +4,7 @@ import getResultView from './screenModules/result';
 import getQuestions from './questions/questionProvider';
 import calcGameResult from './resultService';
 import openGame from './game';
+import {checkIsProvided} from './infrastructure/throwHelper';
 
 const openWelcome = () => {
   let welcomeElement = getWelcomeView(startGame);
@@ -17,9 +18,7 @@ const startGame = () => {
 };
 
 const showResults = (answers) => {
-  if (answers === void (0) ) {
-    throw new Error('answers not provided!');
-  }
+  checkIsProvided(answers, 'answers');
 
   let resultModel = calcGameResult(answers);
 

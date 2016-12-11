@@ -1,5 +1,6 @@
 import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getWelcomeScreen = () => getElementFromTemplate(
     `<section class="main main--welcome">
@@ -16,9 +17,7 @@ const getWelcomeScreen = () => getElementFromTemplate(
 );
 
 const getMainView = (nextScreenCallback) => {
-  if (nextScreenCallback === void (0) ) {
-    throw new Error('nextScreenCallback not provided!');
-  }
+  checkIsProvided(nextScreenCallback, 'nextScreenCallback');
 
   let element = getWelcomeScreen();
 

@@ -1,5 +1,6 @@
 import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getTimer = (timerModel) =>
   `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -46,12 +47,8 @@ const timer = {
 };
 
 const getLevelView = (questionModel, answerCallback) => {
-  if (questionModel === void (0) ) {
-    throw new Error('questionModel not provided!');
-  }
-  if (answerCallback === void (0) ) {
-    throw new Error('answerCallback not provided!');
-  }
+  checkIsProvided(questionModel, 'questionModel');
+  checkIsProvided(answerCallback, 'answerCallback');
 
   let element = getLevelArtistScreen(timer, questionModel);
 

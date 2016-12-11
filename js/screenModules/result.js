@@ -1,5 +1,6 @@
 import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getResultScreen = (model) => getElementFromTemplate(
     `<section class="main main--result">
@@ -13,12 +14,8 @@ const getResultScreen = (model) => getElementFromTemplate(
 );
 
 const getResultView = (resultModel, callBack) => {
-  if (resultModel === void (0) ) {
-    throw new Error('resultModel not provided!');
-  }
-  if (callBack === void (0) ) {
-    throw new Error('callBack not provided!');
-  }
+  checkIsProvided(resultModel, 'resultModel');
+  checkIsProvided(callBack, 'callBack');
 
   let element = getResultScreen(resultModel);
 

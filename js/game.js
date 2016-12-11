@@ -2,6 +2,7 @@ import setScreen from './infrastructure/currentScreenProvider';
 import levelArtist from './screenModules/level_artist';
 import levelGenre from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
+import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
 
 let _endCallback;
 let _questions;
@@ -9,12 +10,8 @@ let _currentQuestion;
 let _result;
 
 const openGame = (questions, endCallback) => {
-  if (questions === void (0) ) {
-    throw new Error('questions not provided!');
-  }
-  if (endCallback === void (0) ) {
-    throw new Error('endCallback not provided!');
-  }
+  checkIsProvided(questions, 'question');
+  checkIsProvided(endCallback, 'endCallback');
 
   _questions = questions;
   _endCallback = endCallback;
@@ -25,9 +22,7 @@ const openGame = (questions, endCallback) => {
 };
 
 const onAnswer = (answer) => {
-  if (answer === void (0) ) {
-    throw new Error('answer not provided!');
-  }
+  checkNotUndefined(answer, 'answer'); // 0 - валидное значение в данном случае
 
   _result.push({
     question: _currentQuestion,
@@ -42,7 +37,6 @@ const onAnswer = (answer) => {
 };
 
 const showNextQuestion = () => {
-
   let nextQuestion = _questions.getNext();
 
   let nextLevelElement;
@@ -57,7 +51,7 @@ const showNextQuestion = () => {
       break;
 
     default:
-      throw new Error('unknown level type'); // TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
+      throw Error('unknown level type'); // TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
   }
 
   _currentQuestion = nextQuestion;

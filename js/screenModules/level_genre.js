@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
-
+import {checkIsProvided} from '../infrastructure/throwHelper';
 
 const getAnswer = (answerModel) =>
     `<div class="genre-answer">
@@ -51,12 +51,8 @@ const getCheckboxes = (questionModel) => {
 
 
 const getLevelView = (questionModel, answerCallback) => {
-  if (questionModel === void (0) ) {
-    throw new Error('questionModel not provided!');
-  }
-  if (answerCallback === void (0) ) {
-    throw new Error('answerCallback not provided!');
-  }
+  checkIsProvided(questionModel, 'questionModel');
+  checkIsProvided(answerCallback, 'answerCallback');
 
   element = getLevelGenreScreen(questionModel);
   checkboxes = getCheckboxes(questionModel);

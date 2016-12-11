@@ -1,7 +1,8 @@
+import {checkIsProvided} from './infrastructure/throwHelper';
+
 const calcResult = (answers) => {
-  if (answers === void (0) ) {
-    throw new Error('answers not provided!');
-  }
+  checkIsProvided(answers, 'answers');
+
   // по заданию пока считать ответы не нужно, да и вопросы относительно этого есть. пока заглушка
   return {
     resultText: 'Вы настоящий меломан!',

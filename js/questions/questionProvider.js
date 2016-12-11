@@ -6,11 +6,9 @@ const getQuestions = () => {
 
   for (let i = 0; i < questionsCount; i++) {
     if (Math.random() > 0.5) {
-      let question = getArtistQuestion();
-      result.push(question);
+      result.push(getArtistQuestion());
     } else {
-      let question = getGenreQuestion();
-      result.push(question);
+      result.push(getGenreQuestion());
     }
   }
 
@@ -69,7 +67,14 @@ const random = (min, max) => {
 
 // заглушка до появления реальных данных
 // 50 величайших исполнителей всех времён по версии журнала Rolling Stone
-let stubArtists = ['The Beatles', 'Боб Дилан', 'Elvis Presley', 'The Rolling Stones', 'Chuck Berry', 'Jimi Hendrix', 'James Brown', 'Little Richard', 'Aretha Franklin', 'Ray Charles', 'Bob Marley', 'The Beach Boys', 'Buddy Holly', 'Led Zeppelin', 'Stevie Wonder', 'Sam Cooke', 'Muddy Watters', 'Marvin Gaye', 'The Velvet Underground', 'Bo Diddley', 'Otis Redding', 'U2', 'Bruce Springsteen', 'Jerry Lee Lewis', 'Fats Domino', 'Ramones', 'Nirvana', 'Prince', 'The Who', 'The Clash', 'Johnny Cash', 'Smokey Robinson & the Miracles', 'The Everly Brothers', 'Neil Young', 'Michael Jackson', 'Madonna', 'Roy Orbison', 'John Lennon', 'David Bowie', 'Simon and Garfunkel', 'The Doors', 'Van Morrison', 'Sly and the Family Stone', 'Public Enemy', 'The Byrds', 'Janis Joplin', 'Patti Smith', 'Run-DMC', 'Elton John', 'The Band'];
+let stubArtists = ['The Beatles', 'Боб Дилан', 'Elvis Presley', 'The Rolling Stones', 'Chuck Berry', 'Jimi Hendrix',
+  'James Brown', 'Little Richard', 'Aretha Franklin', 'Ray Charles', 'Bob Marley', 'The Beach Boys', 'Buddy Holly',
+  'Led Zeppelin', 'Stevie Wonder', 'Sam Cooke', 'Muddy Watters', 'Marvin Gaye', 'The Velvet Underground', 'Bo Diddley',
+  'Otis Redding', 'U2', 'Bruce Springsteen', 'Jerry Lee Lewis', 'Fats Domino', 'Ramones', 'Nirvana', 'Prince', 'The Who',
+  'The Clash', 'Johnny Cash', 'Smokey Robinson & the Miracles', 'The Everly Brothers', 'Neil Young', 'Michael Jackson',
+  'Madonna', 'Roy Orbison', 'John Lennon', 'David Bowie', 'Simon and Garfunkel', 'The Doors', 'Van Morrison',
+  'Sly and the Family Stone', 'Public Enemy', 'The Byrds', 'Janis Joplin', 'Patti Smith', 'Run-DMC',
+  'Elton John', 'The Band'];
 
 let stubGenres = ['Rock', 'Pop', 'Heavy metal', 'Indi rock', 'Folk', 'Punk rock'];
 
