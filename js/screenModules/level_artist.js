@@ -53,7 +53,8 @@ const getLevelView = (questionModel, answerCallback) => {
   let element = getLevelArtistScreen(timer, questionModel);
 
   for (let answer of questionModel.answers) {
-    registerClickHandler(element, `#answer-${answer.id}`, ()=>answerCallback(answer.id));
+    let closure = answer.id;
+    registerClickHandler(element, `#answer-${closure}`, ()=>{console.log(closure);answerCallback(closure)});
   }
   return element;
 };
