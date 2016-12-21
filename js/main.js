@@ -25,9 +25,9 @@ const showResults = (answers) => {
 
   _log = addToLog(_log, answers);
 
-  let resultModel = calcGameResult(_log);
+  let resultViewModel = calcGameResult(_log);
 
-  let resultElement = getResultView(resultModel, startGame);
+  let resultElement = getResultView(resultViewModel, startGame);
   setScreen(resultElement);
 };
 

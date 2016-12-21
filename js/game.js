@@ -3,11 +3,11 @@ import levelArtist from './screenModules/level_artist';
 import levelGenre from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
-import {getInitState, timerElapsed, questionAnswered, timeSpended} from './gameStateService';
+import {getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
 import validateAnswer from './questions/validateAnswerService';
 import {GameResultModel} from './result/gameResultModel';
 
-let _currState;
+let _lifeState;
 let _endCallback;
 let _questions;
 let _currentQuestion;
@@ -17,7 +17,7 @@ const openGame = (questions, endCallback) => {
   checkIsProvided(questions, 'question');
   checkIsProvided(endCallback, 'endCallback');
 
-  _currState = getInitState();
+  _lifeState = getInitState();
   _questions = questions;
   _endCallback = endCallback;
 
@@ -27,9 +27,9 @@ const openGame = (questions, endCallback) => {
 };
 
 const onElapsed = () => {
-  _currState = timerElapsed(_currState);
+  _lifeState = timerElapsed(_lifeState);
 
-  if (_currState.isDead) {
+  if (_lifeState.isDead) {
     endGame();
   }
 };
@@ -41,9 +41,9 @@ const onAnswer = (answer) => {
 
   _questions.questionAnswered(isCorrect);
 
-  _currState = questionAnswered(_currState, isCorrect);
+  _lifeState = questionAnswered(_lifeState, isCorrect);
 
-  if (_currState.isDead || !_questions.hasUnanswered()) {
+  if (_lifeState.isDead || !_questions.hasUnanswered()) {
     endGame();
   } else {
     showNextQuestion();
@@ -76,7 +76,7 @@ const showNextQuestion = () => {
 const endGame = () => {
   clearInterval(_timer);
 
-  _endCallback(new GameResultModel(_questions.getResult(), timeSpended(_currState)));
+  _endCallback(new GameResultModel(_questions.getResult(), timeSpended(_lifeState)));
 };
 
 export default openGame;

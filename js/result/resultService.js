@@ -1,18 +1,18 @@
 import {checkIsProvided} from './../infrastructure/throwHelper';
 
-const calcResult = (log) => {
-  checkIsProvided(log, 'log');
+const calcResult = (allResults) => {
+  checkIsProvided(allResults, 'log');
 
-  let countBetter = log.log
-    .filter((x) => x.rightAnswersCount > log.current.rightAnswersCount
-      || (log.rightAnswersCount === x.rightAnswersCount && x.time < log.current.time))
+  let countBetter = allResults.log
+    .filter((x) => x.rightAnswersCount > allResults.current.rightAnswersCount
+      || (allResults.rightAnswersCount === x.rightAnswersCount && x.time < allResults.current.time))
     .length;
 
   return {
     resultText: 'Вы настоящий меломан!',
-    minuteCount: log.current.time,
-    guessCount: log.current.rightAnswersCount,
-    betterPercent: log.log.length === 0 ? 100 : Math.floor((1 - (countBetter / log.log.length)) * 100)
+    minuteCount: allResults.current.time,
+    guessCount: allResults.current.rightAnswersCount,
+    betterPercent: allResults.log.length === 0 ? 100 : Math.floor((1 - (countBetter / allResults.log.length)) * 100)
   };
 };
 

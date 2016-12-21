@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {getInitState, timerElapsed, questionAnswered, timeSpended} from './gameStateService';
+import {getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
 
 describe('gameStateService', function () {
   describe('#timeSpended', function () {
