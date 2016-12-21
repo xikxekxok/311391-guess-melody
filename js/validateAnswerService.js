@@ -22,6 +22,6 @@ const validateAnswer = (question, answer) => {
     }
 
     return result;
-}
+};
 
 export default validateAnswer;

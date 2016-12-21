@@ -10,7 +10,6 @@ let _currState;
 let _endCallback;
 let _questions;
 let _currentQuestion;
-let _result;
 let _timer;
 
 const openGame = (questions, endCallback) => {
@@ -20,7 +19,6 @@ const openGame = (questions, endCallback) => {
   _currState = getInitState();
   _questions = questions;
   _endCallback = endCallback;
-  _result = [];
 
   _timer = setInterval(onElapsed, 1000);
 
@@ -33,7 +31,7 @@ const onElapsed = () => {
   if (_currState.isDead) {
     endGame();
   }
-}
+};
 
 const onAnswer = (answer) => {
   checkNotUndefined(answer, 'answer'); // 0 - валидное значение в данном случае
@@ -46,8 +44,7 @@ const onAnswer = (answer) => {
 
   if (_currState.isDead || !_questions.hasUnanswered()) {
     endGame();
-  }
-  else {
+  } else {
     showNextQuestion();
   }
 };
@@ -77,7 +74,7 @@ const showNextQuestion = () => {
 
 const endGame = () => {
   clearInterval(_timer);
-  
+
   _endCallback({
     answers: _questions.getResult(),
     time: timeSpended(_currState)

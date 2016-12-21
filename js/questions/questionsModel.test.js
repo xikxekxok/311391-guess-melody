@@ -16,10 +16,10 @@ describe('questionModel', function () {
 
         it('twoGet_returnFalse', function () {
             questions = new QuestionsModel([{ id: 1 }, { id: 2 }]);
-            
+
             questions.getNext();
             questions.questionAnswered(true);
-            
+
             questions.getNext();
             questions.questionAnswered(true);
 
@@ -31,10 +31,10 @@ describe('questionModel', function () {
             assert.equal(2, result.length);
 
             assert.equal(1, result[0].question.id);
-            assert.equal(firstVal,result[0].isCorrect);
+            assert.equal(firstVal, result[0].isCorrect);
 
             assert.equal(2, result[1].question.id);
-            assert.equal(secondVal,result[1].isCorrect);
+            assert.equal(secondVal, result[1].isCorrect);
         }
 
         it('answerOnlyFirst_onlyFirstCorrect', function () {
@@ -45,7 +45,7 @@ describe('questionModel', function () {
 
             result = questions.getResult();
 
-            validate(result, true,false);    
+            validate(result, true, false);
         });
 
         it('onlySecondCorrect', function () {
@@ -59,7 +59,7 @@ describe('questionModel', function () {
 
             result = questions.getResult();
 
-            validate(result, false,true);    
+            validate(result, false, true);
         });
     });
 });

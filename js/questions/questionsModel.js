@@ -4,7 +4,6 @@ export const questionType = {
 };
 
 export class QuestionsModel {
-  
   constructor(questions) {
     this._questions = questions;
     this._result = [];

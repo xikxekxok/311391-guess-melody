@@ -1,10 +1,10 @@
 const addToLog = (oldLog, newResult) => {
     let result = {
-        log : oldLog 
+        log: oldLog
             ? oldLog.log
             : []
     };
-    
+
     result.current = newResult;
 
     if (oldLog) {

@@ -54,7 +54,7 @@ const getLevelView = (questionModel, answerCallback) => {
 
   for (let answer of questionModel.answers) {
     let closure = answer.id;
-    registerClickHandler(element, `#answer-${closure}`, ()=>{console.log(closure);answerCallback(closure)});
+    registerClickHandler(element, `#answer-${closure}`, ()=> answerCallback(closure));
   }
   return element;
 };

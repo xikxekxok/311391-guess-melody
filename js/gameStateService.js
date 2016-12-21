@@ -1,7 +1,7 @@
 const allTime = 120;
 
 export const getInitState = () => ({
-    lifes:3,
+    lifes: 3,
     time: allTime,
     isDead: false
 });
@@ -9,11 +9,11 @@ export const getInitState = () => ({
 const getNewState = (lifes, time) => ({
     lifes: lifes,
     time: time,
-    isDead : time <= 0 || lifes <= 0
+    isDead: time <= 0 || lifes <= 0
 });
 
 export const timerElapsed = (currState) => {
-    return getNewState(currState.lifes, currState.time-1);
+    return getNewState(currState.lifes, currState.time - 1);
 }
 
 export const questionAnswered = (currState, isCorrect) => {
