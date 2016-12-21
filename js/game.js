@@ -4,7 +4,8 @@ import levelGenre from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
 import {getInitState, timerElapsed, questionAnswered, timeSpended} from './gameStateService';
-import validateAnswer from './validateAnswerService';
+import validateAnswer from './questions/validateAnswerService';
+import {GameResultModel} from './result/gameResultModel';
 
 let _currState;
 let _endCallback;
@@ -75,10 +76,7 @@ const showNextQuestion = () => {
 const endGame = () => {
   clearInterval(_timer);
 
-  _endCallback({
-    answers: _questions.getResult(),
-    time: timeSpended(_currState)
-  });
+  _endCallback(new GameResultModel(_questions.getResult(), timeSpended(_currState)));
 };
 
 export default openGame;

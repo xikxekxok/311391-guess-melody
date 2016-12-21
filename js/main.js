@@ -2,10 +2,10 @@ import getWelcomeView from './screenModules/welcome';
 import setScreen from './infrastructure/currentScreenProvider';
 import getResultView from './screenModules/result';
 import getQuestions from './questions/questionProvider';
-import calcGameResult from './resultService';
+import calcGameResult from './result/resultService';
 import openGame from './game';
 import {checkIsProvided} from './infrastructure/throwHelper';
-import addToLog from './logService';
+import addToLog from './result/logService';
 
 let _log;
 

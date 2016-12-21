@@ -26,6 +26,7 @@ describe('questionModel', function () {
       assert.equal(false, questions.hasUnanswered());
     });
   });
+
   describe('#getResult', function () {
     let validate = (res, firstVal, secondVal) => {
       assert.equal(2, res.length);

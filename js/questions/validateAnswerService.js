@@ -1,5 +1,5 @@
-import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
-import {questionType} from './questions/questionsModel';
+import {checkIsProvided, checkNotUndefined} from './../infrastructure/throwHelper';
+import {questionType} from './../questions/questionsModel';
 
 const validateAnswer = (question, answer) => {
   checkIsProvided(question, 'question');
