@@ -21,9 +21,9 @@ describe('ValidateAnswerService', function () {
     let question = {
       type: questionType.genre,
       answers: [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 }
+        {id: 1},
+        {id: 2},
+        {id: 3}
       ],
       rightAnswer: [1, 3]
     };
@@ -58,9 +58,9 @@ describe('ValidateAnswerService', function () {
     let question = {
       type: questionType.artist,
       answers: [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 }
+        {id: 1},
+        {id: 2},
+        {id: 3}
       ],
       rightAnswer: 2
     };
