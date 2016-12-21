@@ -1,9 +1,9 @@
 import setScreen from './infrastructure/currentScreenProvider';
 import levelArtist from './screenModules/level_artist';
 import levelGenre from './screenModules/level_genre';
-import { questionType } from './questions/questionsModel';
-import { checkIsProvided, checkNotUndefined } from './infrastructure/throwHelper';
-import {getInitState, timerElapsed, questionAnswered} from './gameStateService';
+import {questionType} from './questions/questionsModel';
+import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
+import {getInitState, timerElapsed, questionAnswered, timeSpended} from './gameStateService';
 import validateAnswer from './validateAnswerService';
 
 let _currState;
@@ -11,6 +11,7 @@ let _endCallback;
 let _questions;
 let _currentQuestion;
 let _result;
+let _timer;
 
 const openGame = (questions, endCallback) => {
   checkIsProvided(questions, 'question');
@@ -21,7 +22,7 @@ const openGame = (questions, endCallback) => {
   _endCallback = endCallback;
   _result = [];
 
-  setInterval(onElapsed, 1000);
+  _timer = setInterval(onElapsed, 1000);
 
   showNextQuestion();
 };
@@ -38,11 +39,8 @@ const onAnswer = (answer) => {
   checkNotUndefined(answer, 'answer'); // 0 - валидное значение в данном случае
 
   let isCorrect = validateAnswer(_currentQuestion, answer);
-  console.info(isCorrect);
-  _result.push({
-    question: _currentQuestion,
-    answer: isCorrect
-  });
+
+  _questions.questionAnswered(isCorrect);
 
   _currState = questionAnswered(_currState, isCorrect);
 
@@ -78,7 +76,12 @@ const showNextQuestion = () => {
 };
 
 const endGame = () => {
-  _endCallback(_result);
+  clearInterval(_timer);
+  
+  _endCallback({
+    answers: _questions.getResult(),
+    time: timeSpended(_currState)
+  });
 };
 
 export default openGame;

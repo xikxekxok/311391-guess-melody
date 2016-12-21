@@ -1,9 +1,8 @@
 import {checkIsProvided} from './infrastructure/throwHelper';
 
-const calcResult = (answers) => {
-  checkIsProvided(answers, 'answers');
-
-  // по заданию пока считать ответы не нужно, да и вопросы относительно этого есть. пока заглушка
+const calcResult = (log) => {
+  checkIsProvided(log, 'log');
+  
   return {
     resultText: 'Вы настоящий меломан!',
     minuteCount: 2,

@@ -1,6 +1,8 @@
+const allTime = 120;
+
 export const getInitState = () => ({
     lifes:3,
-    time: 120,
+    time: allTime,
     isDead: false
 });
 
@@ -17,3 +19,7 @@ export const timerElapsed = (currState) => {
 export const questionAnswered = (currState, isCorrect) => {
     return getNewState(isCorrect ? currState.lifes : currState.lifes - 1, currState.time);
 }
+
+export const timeSpended = (currState) => {
+    return allTime - currState.time;
+} 

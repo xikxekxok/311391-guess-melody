@@ -1,7 +1,13 @@
 import assert from 'assert';
-import {getInitState, timerElapsed, questionAnswered} from './gameStateService';
+import {getInitState, timerElapsed, questionAnswered, timeSpended} from './gameStateService';
 
 describe('gameStateService', function () {
+    describe('#timeSpended', function () {
+        it('return correct', function () {
+            assert.equal(39, timeSpended({time: 81}));
+        });
+    });
+
     describe('#getInit', function () {
         const initState = getInitState();
 

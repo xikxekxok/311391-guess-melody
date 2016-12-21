@@ -5,6 +5,9 @@ import getQuestions from './questions/questionProvider';
 import calcGameResult from './resultService';
 import openGame from './game';
 import {checkIsProvided} from './infrastructure/throwHelper';
+import addToLog from './logService';
+
+let _log;
 
 const openWelcome = () => {
   let welcomeElement = getWelcomeView(startGame);
@@ -20,7 +23,9 @@ const startGame = () => {
 const showResults = (answers) => {
   checkIsProvided(answers, 'answers');
 
-  let resultModel = calcGameResult(answers);
+  _log = addToLog(_log, answers);
+
+  let resultModel = calcGameResult(_log);
 
   let resultElement = getResultView(resultModel, startGame);
   setScreen(resultElement);
