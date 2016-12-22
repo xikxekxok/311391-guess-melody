@@ -2,9 +2,12 @@ import getWelcomeView from './screenModules/welcome';
 import setScreen from './infrastructure/currentScreenProvider';
 import getResultView from './screenModules/result';
 import getQuestions from './questions/questionProvider';
-import calcGameResult from './resultService';
+import calcGameResult from './result/resultService';
 import openGame from './game';
 import {checkIsProvided} from './infrastructure/throwHelper';
+import addToLog from './result/logService';
+
+let _log;
 
 const openWelcome = () => {
   let welcomeElement = getWelcomeView(startGame);
@@ -20,9 +23,11 @@ const startGame = () => {
 const showResults = (answers) => {
   checkIsProvided(answers, 'answers');
 
-  let resultModel = calcGameResult(answers);
+  _log = addToLog(_log, answers);
 
-  let resultElement = getResultView(resultModel, startGame);
+  let resultViewModel = calcGameResult(_log);
+
+  let resultElement = getResultView(resultViewModel, startGame);
   setScreen(resultElement);
 };
 
