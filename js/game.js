@@ -28,9 +28,9 @@ const openGame = (questions, endCallback) => {
 
 const onElapsed = () => {
   _lifeState = timerElapsed(_lifeState);
-  if (_currentQuestion.type === questionType.artist) {
-    updateTimer(getTimerViewModel());
-  }
+
+  updateTimer(getTimerViewModel());
+
   if (_lifeState.isDead) {
     endGame();
   }
@@ -70,7 +70,7 @@ const showNextQuestion = () => {
       break;
 
     case questionType.genre:
-      nextLevelElement = levelGenre(nextQuestion, onAnswer);
+      nextLevelElement = levelGenre(getTimerViewModel(), nextQuestion, onAnswer);
       break;
 
     default:
