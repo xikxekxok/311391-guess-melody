@@ -9,7 +9,7 @@ const getTimer = (timerModel) =>
         class="timer-line"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
 
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
+      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml" id="timer">
         <span class="timer-value-mins">${timerModel.mins}</span><!--
         --><span class="timer-value-dots">:</span><!--
         --><span class="timer-value-secs">${timerModel.secs}</span>
@@ -41,12 +41,7 @@ const getLevelArtistScreen = (timer, question) => getElementFromTemplate(
   </section>`
 );
 
-const timer = {
-  mins: 2,
-  secs: 0
-};
-
-const getLevelView = (questionModel, answerCallback) => {
+const getLevelView = (timer, questionModel, answerCallback) => {
   checkIsProvided(questionModel, 'questionModel');
   checkIsProvided(answerCallback, 'answerCallback');
 

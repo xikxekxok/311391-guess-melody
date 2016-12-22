@@ -40,6 +40,10 @@ export class QuestionsModel {
   }
 
   getResult() {
+    if (this._currentQuestion) {
+      this.questionAnswered(false);
+    }
+
     while (this.hasUnanswered()) {
       this.getNext();
       this.questionAnswered(false);

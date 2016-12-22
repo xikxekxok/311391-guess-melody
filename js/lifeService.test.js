@@ -1,10 +1,10 @@
 import assert from 'assert';
-import {getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
+import {allTime, getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
 
 describe('gameStateService', function () {
   describe('#timeSpended', function () {
     it('return correct', function () {
-      assert.equal(39, timeSpended({time: 81}));
+      assert.equal(allTime-81, timeSpended({time: 81}));
     });
   });
 
@@ -16,7 +16,7 @@ describe('gameStateService', function () {
     });
 
     it('twoMinutes', function () {
-      assert.equal(120, initState.time);
+      assert.equal(allTime, initState.time);
     });
 
     it('notDead', function () {
