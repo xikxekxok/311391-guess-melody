@@ -1,4 +1,4 @@
-import getWelcomeView from './screenModules/welcome';
+import WelcomeView from './screenModules/welcome';
 import setScreen from './infrastructure/currentScreenProvider';
 import getResultView from './screenModules/result';
 import getQuestions from './questions/questionProvider';
@@ -10,8 +10,8 @@ import addToLog from './result/logService';
 let _log;
 
 const openWelcome = () => {
-  let welcomeElement = getWelcomeView(startGame);
-  setScreen(welcomeElement);
+  let welcomeView = new WelcomeView(startGame);
+  setScreen(welcomeElement.element());
 };
 
 const startGame = () => {
