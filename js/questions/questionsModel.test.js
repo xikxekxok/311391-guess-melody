@@ -62,5 +62,17 @@ describe('questionModel', function () {
 
       validate(result, false, true);
     });
+
+    it('deadActiveQuestion', function () {
+      questions = new QuestionsModel([{id: 1}, {id: 2}]);
+
+      questions.getNext();
+      questions.questionAnswered(true);
+
+      questions.getNext();
+      result = questions.getResult();
+
+      validate(result, true, false);
+    });
   });
 });

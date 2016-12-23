@@ -1,4 +1,4 @@
-const allTime = 120;
+export const allTime = 120;
 
 export const getInitState = () => ({
   lifes: 3,

@@ -1,4 +1,4 @@
-import setScreen from './infrastructure/currentScreenProvider';
+import {setScreen, updateTimer} from './infrastructure/currentScreenProvider';
 import levelArtist from './screenModules/level_artist';
 import levelGenre from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
@@ -29,6 +29,8 @@ const openGame = (questions, endCallback) => {
 const onElapsed = () => {
   _lifeState = timerElapsed(_lifeState);
 
+  updateTimer(getTimerViewModel());
+
   if (_lifeState.isDead) {
     endGame();
   }
@@ -50,6 +52,13 @@ const onAnswer = (answer) => {
   }
 };
 
+const getTimerViewModel = () => {
+  return {
+    mins: Math.floor(_lifeState.time / 60),
+    secs: _lifeState.time % 60
+  };
+};
+
 const showNextQuestion = () => {
   let nextQuestion = _questions.getNext();
 
@@ -57,11 +66,11 @@ const showNextQuestion = () => {
 
   switch (nextQuestion.type) {
     case questionType.artist:
-      nextLevelElement = levelArtist(nextQuestion, onAnswer);
+      nextLevelElement = levelArtist(getTimerViewModel(), nextQuestion, onAnswer);
       break;
 
     case questionType.genre:
-      nextLevelElement = levelGenre(nextQuestion, onAnswer);
+      nextLevelElement = levelGenre(getTimerViewModel(), nextQuestion, onAnswer);
       break;
 
     default:
