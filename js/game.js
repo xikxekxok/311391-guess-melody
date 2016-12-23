@@ -1,6 +1,6 @@
 import {setScreen, updateTimer} from './infrastructure/currentScreenProvider';
-import levelArtist from './screenModules/level_artist';
-import levelGenre from './screenModules/level_genre';
+import LevelArtistView from './screenModules/level_artist';
+import LevelGenreView from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
 import {getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
@@ -68,11 +68,11 @@ const showNextQuestion = () => {
 
   switch (nextQuestion.type) {
     case questionType.artist:
-      nextLevelElement = levelArtist(nextQuestion, onAnswer);
+      nextLevelElement = (new LevelArtistView(nextQuestion, onAnswer)).element;
       break;
 
     case questionType.genre:
-      nextLevelElement = levelGenre(nextQuestion, onAnswer);
+      nextLevelElement = (new LevelGenreView(nextQuestion, onAnswer)).element;
       break;
 
     default:

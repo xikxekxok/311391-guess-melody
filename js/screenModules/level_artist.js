@@ -3,12 +3,9 @@ import { registerClickHandler } from '../infrastructure/domHelper';
 import { checkIsProvided } from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
 
- class LevelArtistView extends AbstractView {
-  constructor(timer, questionModel, answerCallback) {
+ export default class LevelArtistView extends AbstractView {
+  constructor(questionModel, answerCallback) {
     super();
-
-    checkIsProvided(timer, 'timer');
-    this._timer = timer;
 
     checkIsProvided(questionModel, 'questionModel');
     this._questionModel = questionModel;
@@ -18,28 +15,7 @@ import AbstractView from './abstractView';
   };
 
   getMarkup() {
-    throw new TypeError("Implement abstract method getMarkup");
-  };
-
-  bindHandlers() {
-    throw new TypeError("Implement abstract method bindHandlers");
-  };
-
-  clearHandlers() {
-    throw new TypeError("Implement abstract method clearHandlers");
-  };
-}
-const getAnswer = (answerModel) =>
-  `<div class="main-answer-wrapper">
-          <input class="main-answer-r" type="radio" id="answer-${answerModel.id}" name="answer" value="val-1" />
-          <label class="main-answer" for="answer-${answerModel.id}">
-            <img class="main-answer-preview" src="">
-            ${answerModel.text}
-          </label>
-        </div>`;
-
-const getLevelArtistScreen = (question) => getElementFromTemplate(
-  `<section class="main main--level main--level-artist">
+    return `<section class="main main--level main--level-artist">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"
@@ -49,27 +25,30 @@ const getLevelArtistScreen = (question) => getElementFromTemplate(
     <div class="main-wrap">
       <div class="main-timer"></div>
 
-      <h2 class="title main-title">${question.question}</h2>
+      <h2 class="title main-title">${this._questionModel.question}</h2>
 
       <div class="player-wrapper"></div>
       <form class="main-list">
-        ${question.answers.map((x) => getAnswer(x)).join('')}
+        ${this._questionModel.answers.map((answerModel) => `<div class="main-answer-wrapper">
+          <input class="main-answer-r" type="radio" id="answer-${answerModel.id}" name="answer" value="val-1" />
+          <label class="main-answer" for="answer-${answerModel.id}">
+            <img class="main-answer-preview" src="">
+            ${answerModel.text}
+          </label>
+        </div>`).join('')}
       </form>
     </div>
   </section>`
-);
+  };
 
-const getLevelView = (questionModel, answerCallback) => {
-  checkIsProvided(questionModel, 'questionModel');
-  checkIsProvided(answerCallback, 'answerCallback');
+  bindHandlers() {
+    for (let answer of this._questionModel.answers) {
+      let closure = answer.id;
+      registerClickHandler(this._element, `#answer-${closure}`, () => this._answerCallback(closure));
+    }
+  };
 
-  let element = getLevelArtistScreen(questionModel);
+  clearHandlers() {
 
-  for (let answer of questionModel.answers) {
-    let closure = answer.id;
-    registerClickHandler(element, `#answer-${closure}`, () => answerCallback(closure));
-  }
-  return element;
-};
-
-export default getLevelView;
+  };
+}
