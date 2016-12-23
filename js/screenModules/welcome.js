@@ -1,4 +1,3 @@
-import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler} from '../infrastructure/domHelper';
 import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
@@ -10,7 +9,7 @@ export default class WelcomeView extends AbstractView {
 
     checkIsProvided(nextScreenCallback, 'nextScreenCallback');
     this._nextScreenCallback = nextScreenCallback;
-  };
+  }
 
   getMarkup() {
     return `<section class="main main--welcome">
@@ -24,14 +23,14 @@ export default class WelcomeView extends AbstractView {
         Удачи!
       </p>
     </section>`;
-  };
+  }
 
   bindHandlers() {
     registerClickHandler(this._element, '.main-play', this._nextScreenCallback);
-  };
+  }
 
   clearHandlers() {
 
-  };
+  }
 
 }

@@ -1,9 +1,8 @@
-import getElementFromTemplate from '../infrastructure/elementProvider';
-import { registerClickHandler } from '../infrastructure/domHelper';
-import { checkIsProvided } from '../infrastructure/throwHelper';
+import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
 
- export default class LevelArtistView extends AbstractView {
+export default class LevelArtistView extends AbstractView {
   constructor(questionModel, answerCallback) {
     super();
 
@@ -12,7 +11,7 @@ import AbstractView from './abstractView';
 
     checkIsProvided(answerCallback, 'answerCallback');
     this._answerCallback = answerCallback;
-  };
+  }
 
   getMarkup() {
     return `<section class="main main--level main--level-artist">
@@ -38,17 +37,17 @@ import AbstractView from './abstractView';
         </div>`).join('')}
       </form>
     </div>
-  </section>`
-  };
+  </section>`;
+  }
 
   bindHandlers() {
     for (let answer of this._questionModel.answers) {
       let closure = answer.id;
       registerClickHandler(this._element, `#answer-${closure}`, () => this._answerCallback(closure));
     }
-  };
+  }
 
   clearHandlers() {
 
-  };
+  }
 }

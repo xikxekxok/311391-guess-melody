@@ -1,6 +1,5 @@
-import getElementFromTemplate from '../infrastructure/elementProvider';
-import { registerClickHandler, registerSubmitHandler } from '../infrastructure/domHelper';
-import { checkIsProvided } from '../infrastructure/throwHelper';
+import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
 
 export default class LevelGenreView extends AbstractView {
@@ -12,7 +11,7 @@ export default class LevelGenreView extends AbstractView {
 
     checkIsProvided(answerCallback, 'answerCallback');
     this._answerCallback = answerCallback;
-  };
+  }
 
   getMarkup() {
     return `<section class="main main--level main--level-genre">
@@ -33,7 +32,7 @@ export default class LevelGenreView extends AbstractView {
       <button class="genre-answer-send" type="submit">Ответить</button>
     </form>
     </div>
-  </section>`
+  </section>`;
   }
 
   bindHandlers() {
@@ -51,7 +50,7 @@ export default class LevelGenreView extends AbstractView {
   get _checkboxes() {
     if (!this._checkboxesCache) {
       let result = this._questionModel.answers.map((x) => {
-        return { id: x.id, selected: false };
+        return {id: x.id, selected: false};
       });
       this._checkboxesCache = result;
     }
@@ -69,12 +68,12 @@ export default class LevelGenreView extends AbstractView {
     }
 
     this._setButtonState();
-  };
+  }
 
   _setButtonState() {
     let button = this._element.querySelector('.genre-answer-send');
     let newState = this._checkboxes.filter((x) => x.selected).length === 0;
 
     button.disabled = newState;
-  };
+  }
 }

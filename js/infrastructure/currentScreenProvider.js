@@ -5,8 +5,8 @@ export const setScreen = (element, withTimer) => {
 
   let timerElement = document.querySelector('#timer');
   timerElement.style.visibility = withTimer
-    ? "visible"
-    : "hidden";
+    ? 'visible'
+    : 'hidden';
 };
 
 export const updateTimer = (timerModel) => {

@@ -4,7 +4,7 @@ import {allTime, getInitState, timerElapsed, questionAnswered, timeSpended} from
 describe('gameStateService', function () {
   describe('#timeSpended', function () {
     it('return correct', function () {
-      assert.equal(allTime-81, timeSpended({time: 81}));
+      assert.equal(allTime - 81, timeSpended({time: 81}));
     });
   });
 

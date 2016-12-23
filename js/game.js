@@ -4,7 +4,6 @@ import LevelGenreView from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
 import validateAnswer from './questions/validateAnswerService';
-import {GameResultModel} from './result/gameResultModel';
 import GameModel from './gameModel';
 
 let _endCallback;

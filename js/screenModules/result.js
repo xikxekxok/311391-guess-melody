@@ -1,6 +1,5 @@
-import getElementFromTemplate from '../infrastructure/elementProvider';
-import { registerClickHandler } from '../infrastructure/domHelper';
-import { checkIsProvided } from '../infrastructure/throwHelper';
+import {registerClickHandler} from '../infrastructure/domHelper';
+import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
 
 // TODO если не будет дальше по заданиям - добавить числительные у процентов + переводить секунды в минуты и секунды
