@@ -1,4 +1,4 @@
-export class GameResultModel {
+export default class GameResultModel {
 
   constructor(answers, time) {
     this._answers = answers;
