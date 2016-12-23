@@ -2,20 +2,6 @@ import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
 import {checkIsProvided} from '../infrastructure/throwHelper';
 
-const getTimer = (timerModel) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-      <circle
-        cx="390" cy="390" r="370"
-        class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml" id="timer">
-        <span class="timer-value-mins">${timerModel.mins}</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${timerModel.secs}</span>
-      </div>
-    </svg>`;
-
 const getAnswer = (answerModel) =>
     `<div class="genre-answer">
         <div class="player-wrapper"></div>
@@ -23,9 +9,14 @@ const getAnswer = (answerModel) =>
         <label class="genre-answer-check" for="a-${answerModel.id}"></label>
       </div>`;
 
-const getLevelGenreScreen = (timer, model) => getElementFromTemplate(
+const getLevelGenreScreen = (model) => getElementFromTemplate(
     `<section class="main main--level main--level-genre">
-    ${getTimer(timer)}
+    <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+      <circle
+        cx="390" cy="390" r="370"
+        class="timer-line"
+        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+    </svg>
     <div class="main-wrap">
     <h2 class="title">${model.question}</h2>
     <form class="genre">
@@ -67,11 +58,11 @@ const getCheckboxes = (questionModel) => {
 };
 
 
-const getLevelView = (timer, questionModel, answerCallback) => {
+const getLevelView = (questionModel, answerCallback) => {
   checkIsProvided(questionModel, 'questionModel');
   checkIsProvided(answerCallback, 'answerCallback');
 
-  element = getLevelGenreScreen(timer, questionModel);
+  element = getLevelGenreScreen(questionModel);
   checkboxes = getCheckboxes(questionModel);
 
   bindAnswers();

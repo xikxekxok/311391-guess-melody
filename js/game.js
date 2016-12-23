@@ -18,6 +18,8 @@ const openGame = (questions, endCallback) => {
   checkIsProvided(endCallback, 'endCallback');
 
   _lifeState = getInitState();
+  updateTimer(getTimerViewModel());
+
   _questions = questions;
   _endCallback = endCallback;
 
@@ -66,11 +68,11 @@ const showNextQuestion = () => {
 
   switch (nextQuestion.type) {
     case questionType.artist:
-      nextLevelElement = levelArtist(getTimerViewModel(), nextQuestion, onAnswer);
+      nextLevelElement = levelArtist(nextQuestion, onAnswer);
       break;
 
     case questionType.genre:
-      nextLevelElement = levelGenre(getTimerViewModel(), nextQuestion, onAnswer);
+      nextLevelElement = levelGenre(nextQuestion, onAnswer);
       break;
 
     default:
@@ -79,7 +81,7 @@ const showNextQuestion = () => {
 
   _currentQuestion = nextQuestion;
 
-  setScreen(nextLevelElement);
+  setScreen(nextLevelElement, true);
 };
 
 const endGame = () => {

@@ -11,7 +11,7 @@ let _log;
 
 const openWelcome = () => {
   let welcomeView = new WelcomeView(startGame);
-  setScreen(welcomeElement.element());
+  setScreen(welcomeView.element);
 };
 
 const startGame = () => {

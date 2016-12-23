@@ -1,21 +1,34 @@
 import getElementFromTemplate from '../infrastructure/elementProvider';
-import {registerClickHandler} from '../infrastructure/domHelper';
-import {checkIsProvided} from '../infrastructure/throwHelper';
+import { registerClickHandler } from '../infrastructure/domHelper';
+import { checkIsProvided } from '../infrastructure/throwHelper';
+import AbstractView from './abstractView';
 
-const getTimer = (timerModel) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-      <circle
-        cx="390" cy="390" r="370"
-        class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+ class LevelArtistView extends AbstractView {
+  constructor(timer, questionModel, answerCallback) {
+    super();
 
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml" id="timer">
-        <span class="timer-value-mins">${timerModel.mins}</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${timerModel.secs}</span>
-      </div>
-    </svg>`;
+    checkIsProvided(timer, 'timer');
+    this._timer = timer;
 
+    checkIsProvided(questionModel, 'questionModel');
+    this._questionModel = questionModel;
+
+    checkIsProvided(answerCallback, 'answerCallback');
+    this._answerCallback = answerCallback;
+  };
+
+  getMarkup() {
+    throw new TypeError("Implement abstract method getMarkup");
+  };
+
+  bindHandlers() {
+    throw new TypeError("Implement abstract method bindHandlers");
+  };
+
+  clearHandlers() {
+    throw new TypeError("Implement abstract method clearHandlers");
+  };
+}
 const getAnswer = (answerModel) =>
   `<div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${answerModel.id}" name="answer" value="val-1" />
@@ -25,9 +38,14 @@ const getAnswer = (answerModel) =>
           </label>
         </div>`;
 
-const getLevelArtistScreen = (timer, question) => getElementFromTemplate(
-    `<section class="main main--level main--level-artist">
-    ${getTimer(timer)}
+const getLevelArtistScreen = (question) => getElementFromTemplate(
+  `<section class="main main--level main--level-artist">
+    <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+      <circle
+        cx="390" cy="390" r="370"
+        class="timer-line"
+        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+    </svg>
     <div class="main-wrap">
       <div class="main-timer"></div>
 
@@ -41,15 +59,15 @@ const getLevelArtistScreen = (timer, question) => getElementFromTemplate(
   </section>`
 );
 
-const getLevelView = (timer, questionModel, answerCallback) => {
+const getLevelView = (questionModel, answerCallback) => {
   checkIsProvided(questionModel, 'questionModel');
   checkIsProvided(answerCallback, 'answerCallback');
 
-  let element = getLevelArtistScreen(timer, questionModel);
+  let element = getLevelArtistScreen(questionModel);
 
   for (let answer of questionModel.answers) {
     let closure = answer.id;
-    registerClickHandler(element, `#answer-${closure}`, ()=> answerCallback(closure));
+    registerClickHandler(element, `#answer-${closure}`, () => answerCallback(closure));
   }
   return element;
 };
