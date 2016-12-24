@@ -1,4 +1,11 @@
-export class GamePresenter {
+import {setScreen, updateTimer} from './infrastructure/currentScreenProvider';
+import LevelArtistView from './screenModules/level_artist';
+import LevelGenreView from './screenModules/level_genre';
+import {questionType} from './questions/questionsModel';
+import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
+import validateAnswer from './questions/validateAnswerService';
+
+export default class GamePresenter {
 
   constructor(gameModel, endCallback) {
     checkIsProvided(gameModel, 'gameModel');
@@ -7,8 +14,8 @@ export class GamePresenter {
     checkIsProvided(endCallback, 'endCallback');
     this._endCallback = endCallback;
 
-    this._timer = setInterval(this.onElapsed, 1000);
-    this.updateTimer(this._model.getTimerViewModel());
+    this._timer = setInterval(() => this.onElapsed(), 1000);
+    updateTimer(this._model.getTimerViewModel());
 
     this.showNextQuestion();
   }
@@ -16,7 +23,7 @@ export class GamePresenter {
   onElapsed() {
     this._model.timerElapsed();
 
-    this.updateTimer(this._model.getTimerViewModel());
+    updateTimer(this._model.getTimerViewModel());
 
     if (this._model.isEndGame()) {
       this.endGame();
@@ -42,11 +49,11 @@ export class GamePresenter {
 
     switch (this._model.currentQuestion.type) {
       case questionType.artist:
-        nextLevelElement = (new LevelArtistView(this._model.currentQuestion, this.onAnswer)).element;
+        nextLevelElement = (new LevelArtistView(this._model.currentQuestion, (answer) => this.onAnswer(answer))).element;
         break;
 
       case questionType.genre:
-        nextLevelElement = (new LevelGenreView(this._model.currentQuestion, this.onAnswer)).element;
+        nextLevelElement = (new LevelGenreView(this._model.currentQuestion, (answer) => this.onAnswer(answer))).element;
         break;
 
       default:

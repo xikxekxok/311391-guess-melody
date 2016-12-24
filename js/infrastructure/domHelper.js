@@ -2,7 +2,7 @@ export const registerClickHandler = (root, selector, callback) => {
   let elements = root.querySelectorAll(selector);
 
   for (let element of elements) {
-    element.addEventListener('click', callback);
+    element.addEventListener('click', () => callback());
   }
 };
 
