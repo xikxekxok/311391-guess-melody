@@ -1,12 +1,15 @@
-import WelcomeView from './screenModules/welcome';
+import WelcomeView from './views/welcome';
+import ResultView from './views/result';
+
 import setScreen from './infrastructure/currentScreenProvider';
-import ResultView from './screenModules/result';
-import getQuestions from './questions/questionProvider';
-import calcGameResult from './result/resultService';
-import GamePresenter from './gamePresenter';
 import {checkIsProvided} from './infrastructure/throwHelper';
-import addToLog from './result/logService';
-import GameModel from './gameModel';
+
+import getQuestions from './services/game/questionProvider';
+import calcGameResult from './services/result/calcResult';
+import addToLog from './services/result/log';
+
+import GamePresenter from './gamePresenter';
+import GameModel from './models/game';
 
 export default class Application {
 

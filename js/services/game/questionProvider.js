@@ -1,4 +1,4 @@
-import {QuestionsModel, questionType} from './questionsModel';
+import {QuestionsModel, questionType} from '../../models/questions';
 
 const getQuestions = () => {
   let result = [];

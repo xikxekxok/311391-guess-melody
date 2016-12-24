@@ -1,5 +1,5 @@
 import assert from 'assert';
-import addToLog from './logService';
+import addToLog from './log';
 
 describe('logService', function () {
   let result;

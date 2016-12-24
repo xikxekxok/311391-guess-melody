@@ -1,9 +1,9 @@
 import {setScreen, updateTimer} from './infrastructure/currentScreenProvider';
-import LevelArtistView from './screenModules/level_artist';
-import LevelGenreView from './screenModules/level_genre';
-import {questionType} from './questions/questionsModel';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
-import validateAnswer from './questions/validateAnswerService';
+import LevelArtistView from './views/level_artist';
+import LevelGenreView from './views/level_genre';
+import {questionType} from './models/questions';
+import validateAnswer from './services/game/validateAnswer';
 
 export default class GamePresenter {
 
