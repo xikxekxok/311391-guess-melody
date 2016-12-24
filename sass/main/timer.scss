@@ -5,6 +5,11 @@
   top: 0;
   width: 100%;
   z-index: 0;
+  .circle {
+    filter: url(.#blur);
+    transform: rotate(-90deg) scaleY(-1);
+    transform-origin: center
+  }
 }
 
 .timer-line {
@@ -13,6 +18,9 @@
   stroke-width: 15px;
   height: 100%;
   width: 100%;
+  filter: url(.#blur);
+  transform: rotate(-90deg) scaleY(-1);
+  transform-origin: center
 }
 
 .timer-value {
