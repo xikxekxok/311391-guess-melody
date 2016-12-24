@@ -14,7 +14,7 @@ export const updateTimer = (timerModel) => {
   mins.innerHTML = timerModel.mins;
 
   let secs = document.querySelector('#timer .timer-value-secs');
-  secs.innerHTML = timerModel.secs;
+  secs.innerHTML = timerModel.secs.toLocaleString('ru-RU', {minimumIntegerDigits: 2});
 };
 
 export default setScreen;
