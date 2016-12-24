@@ -6,6 +6,6 @@ export const checkIsProvided = (param, paramName) => {
 
 export const checkNotUndefined = (param, paramName) => {
   if (param === void (0)) {
-    throw Error(`${param} is undefined!`);
+    throw Error(`${paramName} is undefined!`);
   }
 };

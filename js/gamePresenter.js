@@ -13,7 +13,9 @@ export default class GamePresenter {
 
     checkIsProvided(endCallback, 'endCallback');
     this._endCallback = endCallback;
+  }
 
+  startGame() {
     this._timer = setInterval(() => this.onElapsed(), 1000);
     updateTimer(this._model.getTimerViewModel());
 
