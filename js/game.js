@@ -1,37 +1,35 @@
 import {setScreen, updateTimer} from './infrastructure/currentScreenProvider';
-import levelArtist from './screenModules/level_artist';
-import levelGenre from './screenModules/level_genre';
+import LevelArtistView from './screenModules/level_artist';
+import LevelGenreView from './screenModules/level_genre';
 import {questionType} from './questions/questionsModel';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
-import {getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
 import validateAnswer from './questions/validateAnswerService';
-import {GameResultModel} from './result/gameResultModel';
+import GameModel from './gameModel';
 
-let _lifeState;
 let _endCallback;
-let _questions;
-let _currentQuestion;
 let _timer;
+let _model;
 
 const openGame = (questions, endCallback) => {
   checkIsProvided(questions, 'question');
   checkIsProvided(endCallback, 'endCallback');
 
-  _lifeState = getInitState();
-  _questions = questions;
-  _endCallback = endCallback;
+  _model = new GameModel(questions);
 
   _timer = setInterval(onElapsed, 1000);
+  updateTimer(_model.getTimerViewModel());
+
+  _endCallback = endCallback;
 
   showNextQuestion();
 };
 
 const onElapsed = () => {
-  _lifeState = timerElapsed(_lifeState);
+  _model.timerElapsed();
 
-  updateTimer(getTimerViewModel());
+  updateTimer(_model.getTimerViewModel());
 
-  if (_lifeState.isDead) {
+  if (_model.isEndGame()) {
     endGame();
   }
 };
@@ -39,53 +37,40 @@ const onElapsed = () => {
 const onAnswer = (answer) => {
   checkNotUndefined(answer, 'answer'); // 0 - валидное значение в данном случае
 
-  let isCorrect = validateAnswer(_currentQuestion, answer);
+  let isCorrect = validateAnswer(_model.currentQuestion, answer);
 
-  _questions.questionAnswered(isCorrect);
+  _model.questionAnswered(isCorrect);
 
-  _lifeState = questionAnswered(_lifeState, isCorrect);
-
-  if (_lifeState.isDead || !_questions.hasUnanswered()) {
+  if (_model.isEndGame()) {
     endGame();
   } else {
     showNextQuestion();
   }
 };
 
-const getTimerViewModel = () => {
-  return {
-    mins: Math.floor(_lifeState.time / 60),
-    secs: _lifeState.time % 60
-  };
-};
-
 const showNextQuestion = () => {
-  let nextQuestion = _questions.getNext();
-
   let nextLevelElement;
 
-  switch (nextQuestion.type) {
+  switch (_model.currentQuestion.type) {
     case questionType.artist:
-      nextLevelElement = levelArtist(getTimerViewModel(), nextQuestion, onAnswer);
+      nextLevelElement = (new LevelArtistView(_model.currentQuestion, onAnswer)).element;
       break;
 
     case questionType.genre:
-      nextLevelElement = levelGenre(getTimerViewModel(), nextQuestion, onAnswer);
+      nextLevelElement = (new LevelGenreView(_model.currentQuestion, onAnswer)).element;
       break;
 
     default:
       throw Error('unknown level type'); // TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
   }
 
-  _currentQuestion = nextQuestion;
-
-  setScreen(nextLevelElement);
+  setScreen(nextLevelElement, true);
 };
 
 const endGame = () => {
   clearInterval(_timer);
 
-  _endCallback(new GameResultModel(_questions.getResult(), timeSpended(_lifeState)));
+  _endCallback(_model.result);
 };
 
 export default openGame;

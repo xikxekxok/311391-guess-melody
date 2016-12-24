@@ -1,6 +1,6 @@
-import getWelcomeView from './screenModules/welcome';
+import WelcomeView from './screenModules/welcome';
 import setScreen from './infrastructure/currentScreenProvider';
-import getResultView from './screenModules/result';
+import ResultView from './screenModules/result';
 import getQuestions from './questions/questionProvider';
 import calcGameResult from './result/resultService';
 import openGame from './game';
@@ -10,8 +10,8 @@ import addToLog from './result/logService';
 let _log;
 
 const openWelcome = () => {
-  let welcomeElement = getWelcomeView(startGame);
-  setScreen(welcomeElement);
+  let welcomeView = new WelcomeView(startGame);
+  setScreen(welcomeView.element);
 };
 
 const startGame = () => {
@@ -27,8 +27,7 @@ const showResults = (answers) => {
 
   let resultViewModel = calcGameResult(_log);
 
-  let resultElement = getResultView(resultViewModel, startGame);
-  setScreen(resultElement);
+  setScreen((new ResultView(resultViewModel, startGame)).element);
 };
 
 openWelcome();

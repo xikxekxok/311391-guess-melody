@@ -1,86 +1,79 @@
-import getElementFromTemplate from '../infrastructure/elementProvider';
 import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
 import {checkIsProvided} from '../infrastructure/throwHelper';
+import AbstractView from './abstractView';
 
-const getTimer = (timerModel) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+export default class LevelGenreView extends AbstractView {
+  constructor(questionModel, answerCallback) {
+    super();
+
+    checkIsProvided(questionModel, 'questionModel');
+    this._questionModel = questionModel;
+
+    checkIsProvided(answerCallback, 'answerCallback');
+    this._answerCallback = answerCallback;
+  }
+
+  getMarkup() {
+    return `<section class="main main--level main--level-genre">
+    <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"
         class="timer-line"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml" id="timer">
-        <span class="timer-value-mins">${timerModel.mins}</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${timerModel.secs}</span>
-      </div>
-    </svg>`;
-
-const getAnswer = (answerModel) =>
-    `<div class="genre-answer">
+    </svg>
+    <div class="main-wrap">
+    <h2 class="title">${this._questionModel.question}</h2>
+    <form class="genre">
+      ${this._questionModel.answers.map((answerModel) => `<div class="genre-answer">
         <div class="player-wrapper"></div>
         <input type="checkbox" name="answer" value="answer-${answerModel.id}" id="a-${answerModel.id}">
         <label class="genre-answer-check" for="a-${answerModel.id}"></label>
-      </div>`;
-
-const getLevelGenreScreen = (timer, model) => getElementFromTemplate(
-    `<section class="main main--level main--level-genre">
-    ${getTimer(timer)}
-    <div class="main-wrap">
-    <h2 class="title">${model.question}</h2>
-    <form class="genre">
-      ${model.answers.map((x) => getAnswer(x)).join('')}
+      </div>`).join('')}
       <button class="genre-answer-send" type="submit">Ответить</button>
     </form>
     </div>
-  </section>`
-);
-
-let checkboxes = [];
-let element;
-
-const bindAnswers = () => {
-
-  for (let value of checkboxes) {
-    let closure = value;
-    registerClickHandler(element, `#a-${value.id}`, () => {
-      closure.selected = !closure.selected;
-      setButtonState();
-    });
+  </section>`;
   }
 
-  setButtonState();
-};
+  bindHandlers() {
+    this._bindAnswers();
 
-const setButtonState = () => {
-  let button = element.querySelector('.genre-answer-send');
-  let newState = checkboxes.filter((x) => x.selected).length === 0;
+    registerSubmitHandler(this._element, '.genre', () => {
+      this._answerCallback(this._checkboxes.filter((x) => x.selected).map((x) => x.id));
+    }, true);
+  }
 
-  button.disabled = newState;
-};
+  clearHandlers() {
 
-const getCheckboxes = (questionModel) => {
-  let result = questionModel.answers.map((x) => {
-    return {id: x.id, selected: false};
-  });
-  return result;
-};
+  }
 
+  get _checkboxes() {
+    if (!this._checkboxesCache) {
+      let result = this._questionModel.answers.map((x) => {
+        return {id: x.id, selected: false};
+      });
+      this._checkboxesCache = result;
+    }
 
-const getLevelView = (timer, questionModel, answerCallback) => {
-  checkIsProvided(questionModel, 'questionModel');
-  checkIsProvided(answerCallback, 'answerCallback');
+    return this._checkboxesCache;
+  }
 
-  element = getLevelGenreScreen(timer, questionModel);
-  checkboxes = getCheckboxes(questionModel);
+  _bindAnswers() {
+    for (let value of this._checkboxes) {
+      let closure = value;
+      registerClickHandler(this._element, `#a-${value.id}`, () => {
+        closure.selected = !closure.selected;
+        this._setButtonState();
+      });
+    }
 
-  bindAnswers();
+    this._setButtonState();
+  }
 
-  registerSubmitHandler(element, '.genre', () => {
-    answerCallback(checkboxes.filter((x) => x.selected).map((x) => x.id));
-  }, true);
+  _setButtonState() {
+    let button = this._element.querySelector('.genre-answer-send');
+    let newState = this._checkboxes.filter((x) => x.selected).length === 0;
 
-  return element;
-};
-
-export default getLevelView;
+    button.disabled = newState;
+  }
+}
