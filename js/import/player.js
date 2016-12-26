@@ -29,6 +29,7 @@ const switchState = (state, player, element) => {
 
 
 const destroyPlayer = (element, state) => {
+  console.log('destroy!');
   const player = element.querySelector('audio');
   const button = element.querySelector('button');
 

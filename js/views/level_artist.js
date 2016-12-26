@@ -1,6 +1,7 @@
 import {registerClickHandler} from '../infrastructure/domHelper';
 import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
+import player from '../import/player';
 
 export default class LevelArtistView extends AbstractView {
   constructor(questionModel, answerCallback) {
@@ -10,7 +11,10 @@ export default class LevelArtistView extends AbstractView {
     this._questionModel = questionModel;
 
     checkIsProvided(answerCallback, 'answerCallback');
-    this._answerCallback = answerCallback;
+    this._answerCallback = (answer) => {
+      this._player();
+      answerCallback(answer);
+    };
   }
 
   getMarkup() {
@@ -30,7 +34,7 @@ export default class LevelArtistView extends AbstractView {
         ${this._questionModel.answers.map((answerModel) => `<div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${answerModel.id}" name="answer" value="val-1" />
           <label class="main-answer" for="answer-${answerModel.id}">
-            <img class="main-answer-preview" src="">
+            <img class="main-answer-preview" src="${answerModel.image.url}" width="${answerModel.image.width}" height="${answerModel.image.height}">
             ${answerModel.text}
           </label>
         </div>`).join('')}
@@ -44,6 +48,9 @@ export default class LevelArtistView extends AbstractView {
       let closure = answer.id;
       registerClickHandler(this._element, `#answer-${closure}`, () => this._answerCallback(closure));
     }
+
+    const playerElement = this._element.querySelector('.player-wrapper');
+    this._player = player(playerElement, this._questionModel.src, true, false);
   }
 
   clearHandlers() {

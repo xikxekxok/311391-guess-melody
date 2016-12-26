@@ -34,7 +34,8 @@ export default class GamePresenter {
 
   onAnswer(answer) {
     checkNotUndefined(answer, 'answer'); // 0 - валидное значение в данном случае
-
+    console.log(this._model.currentQuestion);
+    console.log(answer);
     let isCorrect = validateAnswer(this._model.currentQuestion, answer);
 
     this._model.questionAnswered(isCorrect);

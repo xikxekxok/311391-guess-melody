@@ -1,6 +1,7 @@
 import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
 import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
+import player from '../import/player';
 
 export default class LevelGenreView extends AbstractView {
   constructor(questionModel, answerCallback) {
@@ -10,7 +11,12 @@ export default class LevelGenreView extends AbstractView {
     this._questionModel = questionModel;
 
     checkIsProvided(answerCallback, 'answerCallback');
-    this._answerCallback = answerCallback;
+    this._answerCallback = (answer) => {
+      this._players.forEach((x) => x());
+      answerCallback(answer);
+    };
+
+    this._players = [];
   }
 
   getMarkup() {
@@ -22,48 +28,55 @@ export default class LevelGenreView extends AbstractView {
     </svg>
     <div class="main-wrap">
     <h2 class="title">${this._questionModel.question}</h2>
-    <form class="genre">
+    <div class="genre">
       ${this._questionModel.answers.map((answerModel) => `<div class="genre-answer">
-        <div class="player-wrapper"></div>
+        <div class="player-wrapper" id="player-${answerModel.id}"></div>
         <input type="checkbox" name="answer" value="answer-${answerModel.id}" id="a-${answerModel.id}">
         <label class="genre-answer-check" for="a-${answerModel.id}"></label>
       </div>`).join('')}
-      <button class="genre-answer-send" type="submit">Ответить</button>
+      <button class="genre-answer-send" id="submit_genre">Ответить</button>
     </form>
     </div>
-  </section>`;
+    </section>`;
   }
 
   bindHandlers() {
     this._bindAnswers();
 
-    registerSubmitHandler(this._element, '.genre', () => {
-      this._answerCallback(this._checkboxes.filter((x) => x.selected).map((x) => x.id));
-    }, true);
+    registerClickHandler(this._element, '#submit_genre', () => {
+      this._answerCallback(this._answers.filter((x) => x.selected).map((x) => x.id));
+    });
   }
 
   clearHandlers() {
 
   }
 
-  get _checkboxes() {
-    if (!this._checkboxesCache) {
+  get _answers() {
+    if (!this._answersCache) {
       let result = this._questionModel.answers.map((x) => {
-        return {id: x.id, selected: false};
+        return {
+          id: x.id,
+          selected: false,
+          src: x.src
+        };
       });
-      this._checkboxesCache = result;
+      this._answersCache = result;
     }
 
-    return this._checkboxesCache;
+    return this._answersCache;
   }
 
   _bindAnswers() {
-    for (let value of this._checkboxes) {
+    for (let value of this._answers) {
       let closure = value;
       registerClickHandler(this._element, `#a-${value.id}`, () => {
         closure.selected = !closure.selected;
         this._setButtonState();
       });
+
+      const playerElement = this._element.querySelector(`#player-${value.id}`);
+      this._players.push(player(playerElement, value.src, false, true));
     }
 
     this._setButtonState();
@@ -71,7 +84,7 @@ export default class LevelGenreView extends AbstractView {
 
   _setButtonState() {
     let button = this._element.querySelector('.genre-answer-send');
-    let newState = this._checkboxes.filter((x) => x.selected).length === 0;
+    let newState = this._answers.filter((x) => x.selected).length === 0;
 
     button.disabled = newState;
   }

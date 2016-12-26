@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {QuestionsModel} from './questions';
+import QuestionsModel from './questionsModel';
 
 describe('questionModel', function () {
   let questions;
