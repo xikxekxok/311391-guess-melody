@@ -4,6 +4,7 @@ import LevelArtistView from './views/level_artist';
 import LevelGenreView from './views/level_genre';
 import {questionType} from './models/questions';
 import validateAnswer from './services/game/validateAnswer';
+import timer from './import/timer';
 
 export default class GamePresenter {
 
@@ -17,15 +18,14 @@ export default class GamePresenter {
 
   startGame() {
     this._timer = setInterval(() => this.onElapsed(), 1000);
-    updateTimer(this._model.getTimerViewModel());
+    this._destroyTimer = timer(120);
+    //updateTimer(this._model.getTimerViewModel());
 
     this.showNextQuestion();
   }
 
   onElapsed() {
     this._model.timerElapsed();
-
-    updateTimer(this._model.getTimerViewModel());
 
     if (this._model.isEndGame()) {
       this.endGame();
@@ -67,6 +67,7 @@ export default class GamePresenter {
   }
 
   endGame() {
+    this._destroyTimer();
     clearInterval(this._timer);
 
     this._endCallback(this._model.result);
