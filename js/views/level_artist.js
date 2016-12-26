@@ -41,6 +41,7 @@ export default class LevelArtistView extends AbstractView {
   bindHandlers() {
     for (let answer of this._questionModel.answers) {
       let closure = answer.id;
+      console.log(this._element);
       registerClickHandler(this._element, `#answer-${closure}`, () => this._answerCallback(closure));
     }
 
