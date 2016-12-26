@@ -1,5 +1,5 @@
-import {getInitState, timerElapsed, questionAnswered, timeSpended} from './lifeService';
-import GameResultModel from './result/gameResultModel';
+import {getInitState, timerElapsed, questionAnswered, timeSpended} from './../services/game/life';
+import GameResultModel from './gameResult';
 
 export default class GameModel {
 

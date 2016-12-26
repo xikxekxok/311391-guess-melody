@@ -1,4 +1,4 @@
-import {checkIsProvided} from './../infrastructure/throwHelper';
+import {checkIsProvided} from '../../infrastructure/throwHelper';
 
 const calcResult = (allResults) => {
   checkIsProvided(allResults, 'log');

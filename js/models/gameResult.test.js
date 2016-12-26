@@ -1,5 +1,5 @@
 import assert from 'assert';
-import GameResultModel from './gameResultModel';
+import GameResultModel from './gameResult';
 
 describe('GameResultModel', function () {
   it('calcCorrect', function () {

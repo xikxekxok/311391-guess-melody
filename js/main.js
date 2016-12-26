@@ -1,33 +1,4 @@
-import WelcomeView from './screenModules/welcome';
-import setScreen from './infrastructure/currentScreenProvider';
-import ResultView from './screenModules/result';
-import getQuestions from './questions/questionProvider';
-import calcGameResult from './result/resultService';
-import openGame from './game';
-import {checkIsProvided} from './infrastructure/throwHelper';
-import addToLog from './result/logService';
+import Application from './application';
 
-let _log;
-
-const openWelcome = () => {
-  let welcomeView = new WelcomeView(startGame);
-  setScreen(welcomeView.element);
-};
-
-const startGame = () => {
-  let questions = getQuestions();
-
-  openGame(questions, showResults);
-};
-
-const showResults = (answers) => {
-  checkIsProvided(answers, 'answers');
-
-  _log = addToLog(_log, answers);
-
-  let resultViewModel = calcGameResult(_log);
-
-  setScreen((new ResultView(resultViewModel, startGame)).element);
-};
-
-openWelcome();
+let app = new Application();
+app.openWelcome();

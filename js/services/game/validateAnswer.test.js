@@ -1,6 +1,6 @@
 import assert from 'assert';
-import validate from './validateAnswerService';
-import {questionType} from './../questions/questionsModel';
+import validate from './validateAnswer';
+import {questionType} from '../../models/questions';
 
 describe('ValidateAnswerService', function () {
   describe('#checkInput', function () {
