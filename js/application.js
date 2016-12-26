@@ -12,6 +12,7 @@ import GamePresenter from './gamePresenter';
 import GameModel from './models/game';
 
 export default class Application {
+
   openWelcome() {
     let welcomeView = new WelcomeView(()=>this.startGame());
     setScreen(welcomeView.element);
