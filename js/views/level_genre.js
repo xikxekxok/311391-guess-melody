@@ -65,7 +65,6 @@ export default class LevelGenreView extends AbstractView {
   _bindAnswers() {
     for (let value of this._answers) {
       let closure = value;
-      console.log(this._element);
       registerClickHandler(this._element, `#a-${value.id}`, () => {
         closure.selected = !closure.selected;
         this._setButtonState();
