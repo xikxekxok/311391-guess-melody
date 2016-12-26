@@ -4,7 +4,7 @@ import ResultView from './views/result';
 import setScreen from './infrastructure/currentScreenProvider';
 import {checkIsProvided} from './infrastructure/throwHelper';
 
-import getQuestions from './services/game/questionProvider';
+import getQuestions from './services/getQuestions/questionProvider';
 import calcGameResult from './services/result/calcResult';
 import addToLog from './services/result/log';
 
@@ -19,10 +19,11 @@ export default class Application {
   }
 
   startGame() {
-    let questions = getQuestions();
-    let model = new GameModel(questions);
-    let presenter = new GamePresenter(model, (answers) => this.showResults(answers));
-    presenter.startGame();
+    getQuestions().then((questions) => {
+      let model = new GameModel(questions);
+      let presenter = new GamePresenter(model, (answers) => this.showResults(answers));
+      presenter.startGame();
+    });
   }
 
   showResults(answers) {
