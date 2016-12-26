@@ -28,7 +28,7 @@ export default class LevelArtistView extends AbstractView {
       <form class="main-list">
         ${this._questionModel.answers.map((answerModel) => `<div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${answerModel.id}" name="answer" value="val-1" />
-          <label class="main-answer" for="answer-${answerModel.id}">
+          <label class="main-answer" for="answer-${answerModel.id}" id="answerlabel-${answerModel.id}">
             <img class="main-answer-preview" src="${answerModel.image.url}" width="${answerModel.image.width}" height="${answerModel.image.height}">
             ${answerModel.text}
           </label>
@@ -41,7 +41,7 @@ export default class LevelArtistView extends AbstractView {
   bindHandlers() {
     for (let answer of this._questionModel.answers) {
       let closure = answer.id;
-      registerClickHandler(this._element, `#answer-${closure}`, () => this._answerCallback(closure));
+      registerClickHandler(this._element, `#answerlabel-${closure}`, () => this._answerCallback(closure));
     }
 
     const playerElement = this._element.querySelector('.player-wrapper');
