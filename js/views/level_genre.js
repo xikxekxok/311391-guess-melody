@@ -1,4 +1,4 @@
-import {registerClickHandler, registerSubmitHandler} from '../infrastructure/domHelper';
+import {registerClickHandler} from '../infrastructure/domHelper';
 import {checkIsProvided} from '../infrastructure/throwHelper';
 import AbstractView from './abstractView';
 import player from '../import/player';

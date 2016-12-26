@@ -55,18 +55,6 @@ gulp.task('scripts', function () {
       }
     }))
     .pipe(gulp.dest('build/js/'));
-
-  // gulp.src(['js/import/*.js','!js/main.js'])
-  //   .pipe(plumber())
-  //   .pipe(webpack({
-  //     devtool:'source-map',
-  //     module: {
-  //       loaders: [
-  //         { test: /\.js$/, loader: 'babel-loader' },
-  //       ],
-  //     }
-  //   }))
-  //   .pipe(gulp.dest('build/js/'));
 });
 
 gulp.task('test', function () {
@@ -123,7 +111,8 @@ gulp.task('serve', ['assemble'], function () {
     if (e.type !== 'deleted') {
       gulp.start('copy-html');
     }
-  })
+  });
+
   gulp.watch('js/**/*.js').on('change', (e) => {
     if (e.type !== 'deleted') {
       gulp.start('scripts');

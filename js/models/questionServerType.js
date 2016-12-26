@@ -1,6 +1,6 @@
 const questionServerType = {
-    genre: 'genre',
-    artist: 'artist'
-}
+  genre: 'genre',
+  artist: 'artist'
+};
 
 export default questionServerType;

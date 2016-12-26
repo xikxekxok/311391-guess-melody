@@ -1,4 +1,4 @@
-import { questionType } from '../../models/questions';
+import questionType from '../../models/questions';
 
 const toGenreModel = (serverQuestion) => {
   let result = {
@@ -11,13 +11,14 @@ const toGenreModel = (serverQuestion) => {
   for (let i = 0; i < serverQuestion.answers.length; i++) {
     let answer = serverQuestion.answers[i];
 
-    result.answers.push({ id: i, src: answer.src });
+    result.answers.push({id: i, src: answer.src});
 
-    if (answer.genre === serverQuestion.genre)
+    if (answer.genre === serverQuestion.genre) {
       result.rightAnswer.push(i);
+    }
   }
 
   return result;
-}
+};
 
 export default toGenreModel;

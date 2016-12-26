@@ -1,4 +1,4 @@
-import {setScreen, updateTimer} from './infrastructure/currentScreenProvider';
+import setScreen from './infrastructure/currentScreenProvider';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
 import LevelArtistView from './views/level_artist';
 import LevelGenreView from './views/level_genre';
@@ -19,7 +19,6 @@ export default class GamePresenter {
   startGame() {
     this._timer = setInterval(() => this.onElapsed(), 1000);
     this._destroyTimer = timer(120);
-    //updateTimer(this._model.getTimerViewModel());
 
     this.showNextQuestion();
   }
@@ -34,8 +33,6 @@ export default class GamePresenter {
 
   onAnswer(answer) {
     checkNotUndefined(answer, 'answer'); // 0 - валидное значение в данном случае
-    console.log(this._model.currentQuestion);
-    console.log(answer);
     let isCorrect = validateAnswer(this._model.currentQuestion, answer);
 
     this._model.questionAnswered(isCorrect);
@@ -63,7 +60,7 @@ export default class GamePresenter {
         throw Error('unknown level type'); // TODO: разобраться, как добавить модель уровня в качестве деталей ошибки
     }
 
-    setScreen(nextLevelElement, true);
+    setScreen(nextLevelElement);
   }
 
   endGame() {

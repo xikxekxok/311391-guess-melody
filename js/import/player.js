@@ -17,7 +17,7 @@ const switchState = (state, player, element) => {
     player.play();
     state.stopAnimation = animate(
         getAnimation(player.currentTime, 1000, player.duration),
-        animation => updateState(element, player));
+        (animation) => updateState(element, player));
   } else {
     player.pause();
     state.stopAnimation();
@@ -29,7 +29,6 @@ const switchState = (state, player, element) => {
 
 
 const destroyPlayer = (element, state) => {
-  console.log('destroy!');
   const player = element.querySelector('audio');
   const button = element.querySelector('button');
 
