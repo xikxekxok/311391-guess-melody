@@ -5,14 +5,13 @@ const calcResult = (allResults) => {
 
   let countBetter = allResults.log
     .filter((x) => x.answers > allResults.current.rightAnswersCount
-      || (allResults.rightAnswersCount === x.answers && x.time < allResults.current.time))
+      || (allResults.current.rightAnswersCount === x.answers && x.time < allResults.current.time))
     .length;
-
   return {
     resultText: 'Вы настоящий меломан!',
     minuteCount: allResults.current.time,
     guessCount: allResults.current.rightAnswersCount,
-    betterPercent: allResults.log.length === 0 ? 100 : Math.floor((1 - (countBetter / allResults.log.length)) * 100)
+    betterPercent: allResults.log.length === 0 ? 100 : Math.round((1 - (countBetter / allResults.log.length)) * 100)
   };
 };
 
