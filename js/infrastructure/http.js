@@ -1,7 +1,6 @@
 const getResponse = (url) => {
   return fetch(url).then(
-      (response) => response.json(),
-      (response) => response
+      (response) => response.json()
     );
 };
 
