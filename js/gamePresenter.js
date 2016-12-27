@@ -18,8 +18,8 @@ export default class GamePresenter {
   }
 
   startGame() {
-    this._timer = setInterval(() => this.onElapsed(), 1000);
     this._destroyTimer = timer(120);
+    this._timer = setInterval(() => this.onElapsed(), 1000);
 
     this.showNextQuestion();
   }
