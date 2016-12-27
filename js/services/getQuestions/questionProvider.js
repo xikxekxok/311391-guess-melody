@@ -1,4 +1,4 @@
-import QuestionsModel from '../../models/questionsModel';
+import QuestionsModel from '../../models/questions';
 import getResponse from '../../infrastructure/http';
 import questionServerType from '../../models/questionServerType';
 import toGenreModel from './genreMapper';

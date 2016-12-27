@@ -1,5 +1,5 @@
 import assert from 'assert';
-import QuestionsModel from './questionsModel';
+import QuestionsModel from './questions';
 
 describe('questionModel', function () {
   let questions;
@@ -8,7 +8,7 @@ describe('questionModel', function () {
     it('oneGet_returnTrue', function () {
       questions = new QuestionsModel([{id: 1}, {id: 2}]);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(true);
 
       assert.equal(true, questions.hasUnanswered());
@@ -17,10 +17,10 @@ describe('questionModel', function () {
     it('twoGet_returnFalse', function () {
       questions = new QuestionsModel([{id: 1}, {id: 2}]);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(true);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(true);
 
       assert.equal(false, questions.hasUnanswered());
@@ -41,7 +41,7 @@ describe('questionModel', function () {
     it('answerOnlyFirst_onlyFirstCorrect', function () {
       questions = new QuestionsModel([{id: 1}, {id: 2}]);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(true);
 
       result = questions.getResult();
@@ -52,10 +52,10 @@ describe('questionModel', function () {
     it('onlySecondCorrect', function () {
       questions = new QuestionsModel([{id: 1}, {id: 2}]);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(false);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(true);
 
       result = questions.getResult();
@@ -66,10 +66,10 @@ describe('questionModel', function () {
     it('deadActiveQuestion', function () {
       questions = new QuestionsModel([{id: 1}, {id: 2}]);
 
-      questions.getNext();
+      questions.goToNext();
       questions.questionAnswered(true);
 
-      questions.getNext();
+      questions.goToNext();
       result = questions.getResult();
 
       validate(result, true, false);

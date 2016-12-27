@@ -1,6 +1,6 @@
 import assert from 'assert';
 import map from './artistMapper';
-import {questionType} from '../../models/questions';
+import questionType from '../../models/questionType';
 
 describe('artistMapper', function () {
   it('correctMap', function () {

@@ -2,9 +2,10 @@ import setScreen from './infrastructure/currentScreenProvider';
 import {checkIsProvided, checkNotUndefined} from './infrastructure/throwHelper';
 import LevelArtistView from './views/level_artist';
 import LevelGenreView from './views/level_genre';
-import {questionType} from './models/questions';
+import questionType from './models/questionType';
 import validateAnswer from './services/game/validateAnswer';
 import timer from './import/timer';
+import preloadQuestion from './services/game/preloader';
 
 export default class GamePresenter {
 
@@ -61,6 +62,8 @@ export default class GamePresenter {
     }
 
     setScreen(nextLevelElement);
+
+    preloadQuestion(this._model.getQuestionForPreload());
   }
 
   endGame() {

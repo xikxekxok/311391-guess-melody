@@ -1,6 +1,6 @@
 import assert from 'assert';
 import map from './genreMapper';
-import {questionType} from '../../models/questions';
+import questionType from '../../models/questionType';
 
 describe('genreMapper', function () {
   it('correctMap', function () {

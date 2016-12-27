@@ -1,4 +1,4 @@
-import questionType from '../../models/questions';
+import questionType from '../../models/questionType';
 
 const toArtistModel = (serverQuestion) => {
   let result = {
