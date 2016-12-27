@@ -18,8 +18,17 @@ export default class Application {
     setScreen(welcomeView.element);
   }
 
+
   startGame() {
+    if (this._loading) {
+      return;
+    }
+
+    this._loading = true;
+
     getQuestions().then((questions) => {
+      this._loading = false;
+
       let model = new GameModel(questions);
       let presenter = new GamePresenter(model, (answers) => this.showResults(answers));
       presenter.startGame();
@@ -29,10 +38,18 @@ export default class Application {
   showResults(answers) {
     checkIsProvided(answers, 'answers');
 
-    this._log = addToLog(this._log, answers);
+    if (this._loading) {
+      return;
+    }
 
-    let resultViewModel = calcGameResult(this._log);
+    this._loading = true;
 
-    setScreen((new ResultView(resultViewModel, () => this.startGame())).element);
+    addToLog(answers).then((log)=> {
+      this._loading = false;
+
+      let resultViewModel = calcGameResult(log);
+
+      setScreen((new ResultView(resultViewModel, () => this.startGame())).element);
+    });
   }
 }

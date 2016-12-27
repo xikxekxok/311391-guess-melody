@@ -4,8 +4,8 @@ const calcResult = (allResults) => {
   checkIsProvided(allResults, 'log');
 
   let countBetter = allResults.log
-    .filter((x) => x.rightAnswersCount > allResults.current.rightAnswersCount
-      || (allResults.rightAnswersCount === x.rightAnswersCount && x.time < allResults.current.time))
+    .filter((x) => x.answers > allResults.current.rightAnswersCount
+      || (allResults.rightAnswersCount === x.answers && x.time < allResults.current.time))
     .length;
 
   return {

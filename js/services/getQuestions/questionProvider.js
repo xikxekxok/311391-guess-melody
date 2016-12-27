@@ -1,5 +1,5 @@
 import QuestionsModel from '../../models/questions';
-import getResponse from '../../infrastructure/http';
+import {getResponse} from '../../infrastructure/http';
 import questionServerType from '../../models/questionServerType';
 import toGenreModel from './genreMapper';
 import toArtistModel from './artistMapper';

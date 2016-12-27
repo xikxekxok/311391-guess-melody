@@ -10,6 +10,15 @@ $preview-spacing: 11px;
   }
 }
 
+.main--level-genre .title {
+   font: italic 300 1.5em "Fira Sans", sans-serif;
+   text-align:center;
+}
+.main--level-artist .title {
+  font: italic 300 1.9em "Fira Sans", sans-serif;
+  text-align: center;
+}
+
 .main-player {
   height: 55px;
   margin-bottom: 80px;

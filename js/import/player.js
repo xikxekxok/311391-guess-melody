@@ -65,8 +65,9 @@ export default (element, file, autoplay = false, controllable = true) => {
       switchState(state, player, content);
     }
   };
-
-  player.src = file;
+  if (player !== null) {
+    player.src = file;
+  }
   element.appendChild(content);
   element.classList.toggle('player--no-controls', !controllable);
 
