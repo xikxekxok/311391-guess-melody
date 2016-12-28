@@ -5,7 +5,7 @@ export const getAnimation = (step, stepDuration, steps) => ({
 });
 
 
-export default (animation, callback, callbackEnd) => {
+export default (animation, callback, callbackEnd, callbackDestroy) => {
   const interval = setInterval(() => {
     const nextStep = animation.step + 1;
     if (nextStep <= animation.steps) {
@@ -19,7 +19,12 @@ export default (animation, callback, callbackEnd) => {
     }
   }, animation.stepDuration);
 
-  const stopFn = () => clearInterval(interval);
+  const stopFn = () => {
+    if (typeof callbackDestroy === 'function') {
+      callbackDestroy();
+    }
+    clearInterval(interval);
+  };
 
   return stopFn;
 };

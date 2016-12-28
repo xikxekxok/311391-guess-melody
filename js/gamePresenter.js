@@ -18,7 +18,7 @@ export default class GamePresenter {
   }
 
   startGame() {
-    this._destroyTimer = timer(120);
+    this._destroyTimer = timer(this._model.getCurrentTime());
     this._timer = setInterval(() => this.onElapsed(), 1000);
 
     this.showNextQuestion();

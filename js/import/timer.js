@@ -49,7 +49,12 @@ export default (total = 120, onEnd) => {
   const radius = parseInt(element.getAttributeNS(null, 'r'), 10);
   const timer = document.querySelector('.timer-value');
 
-  return animate(getAnimation(0, 1000, total), (animation) => {
+  let animationParam = getAnimation(0, 1000, total);
+  redrawTimer(timer, animationParam);
+  redrawCircle(element, radius, animationParam);
+  timer.classList.add('timer--active');
+
+  return animate(animationParam, (animation) => {
     redrawCircle(element, radius, animation);
     redrawTimer(timer, animation);
   }, () => {
@@ -58,5 +63,7 @@ export default (total = 120, onEnd) => {
     }
 
     timer.classList.add('timer-value--finished');
+  }, () => {
+    timer.classList.remove('timer--active');
   });
 };

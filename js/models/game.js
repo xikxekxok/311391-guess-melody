@@ -9,11 +9,8 @@ export default class GameModel {
     this._currentQuestion = this._questions.goToNext();
   }
 
-  getTimerViewModel() {
-    return {
-      mins: Math.floor(this._lifeState.time / 60),
-      secs: this._lifeState.time % 60
-    };
+  getCurrentTime() {
+    return this._lifeState.time;
   }
 
   isEndGame() {
